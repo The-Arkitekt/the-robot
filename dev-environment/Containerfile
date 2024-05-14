@@ -1,0 +1,31 @@
+# Set base image
+FROM archlinux:latest 
+
+# Update packages and get sudo
+RUN pacman -Syu --noconfirm sudo
+
+# Create user space 
+ARG password=UnsecurePassword
+RUN useradd -m development-user
+RUN yes $password | passwd development-user
+
+# Add user to sudoers
+RUN echo "development-user ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
+# Do subsequent commands as the env-user
+USER development-user
+WORKDIR /home/development-user
+
+# Update packages and get dependencies
+RUN echo $password | sudo -S pacman -S --noconfirm gcc git neovim tmux
+
+# Add the nvim config directory to container so nvim can use it
+ADD dev-environment/neovim-config/ .config/nvim/
+RUN echo $password | sudo -S chown -R development-user .config/
+
+# Add the project source code to container
+ADD source/ source/
+RUN echo $password | sudo -S chown -R development-user source/
+
+# Set the entrypoint for when this container is run
+ENTRYPOINT tmux
