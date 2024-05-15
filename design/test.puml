@@ -1,0 +1,9 @@
+@startuml
+
+class testy
+{
+  + leftBall : uint16_t
+  + rightBall : uint16_t
+}
+
+@enduml
