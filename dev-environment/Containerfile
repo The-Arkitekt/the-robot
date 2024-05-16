@@ -17,11 +17,15 @@ USER development-user
 WORKDIR /home/development-user
 
 # Update packages and get dependencies
-RUN echo $password | sudo -S pacman -S --noconfirm gcc git neovim tmux plantuml nsxiv
+RUN echo $password | sudo -S pacman -S --noconfirm gcc git neovim tmux
 
 # Add the nvim config directory to container so nvim can use it
 ADD dev-environment/neovim-config/ .config/nvim/
 RUN echo $password | sudo -S chown -R development-user .config/
+
+# Add the project design directory to container
+ADD design/ design/
+RUN echo $password | sudo -S chown -R development-user design/
 
 # Add the project source code to container
 ADD source/ source/
