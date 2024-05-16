@@ -1,0 +1,60 @@
+@startuml
+
+'------------------------------------------
+'----- Drive Controller Definition --------
+
+[Drive Controller] as DC
+
+note top of DC
+  Purpose:
+    Control the state of the robot drive system. 
+end note
+
+
+'---------------------------------------------
+'----- Remote Access Gateway Definition ------
+
+[Remote Access Gateway] as TG
+
+note top of TG
+  Purpose:
+    Access point for remote client(s)
+end note
+
+
+'---------------------------------------------------
+'----- External to Internal Message Translator -----
+
+[External to Internal Message Translator] as EIMT
+
+note top of EIMT
+  Purpose:
+    Translate messages from remote client(s)
+    to internal messages
+end note
+
+'-----------------------------------------------
+'----- Internal Message Broker Definition ------
+
+[Internal Message Broker] as IMB
+
+note top of IMB
+  Purpose:
+    Intermediary between internal 
+    message producers and consumers
+end note
+
+'----------------------------------------------
+'----- External Message Broker Definition -----
+
+[External Message Broker] as EMB
+
+note top of EMB
+ Purpose:
+   Intermediary between external 
+   message producers and consumers
+end note
+
+
+
+@enduml
