@@ -1,7 +1,7 @@
 @startuml
 
-'------------------------------------------
-'----- Drive Controller Definition --------
+'-------------------------------
+'----- Drive Controller --------
 
 [Drive Controller] as DC
 
@@ -11,8 +11,8 @@ note top of DC
 end note
 
 
-'---------------------------------------------
-'----- Remote Access Gateway Definition ------
+'----------------------------------
+'----- Remote Access Gateway ------
 
 [Remote Access Gateway] as TG
 
@@ -22,10 +22,10 @@ note top of TG
 end note
 
 
-'---------------------------------------------------
-'----- External to Internal Message Translator -----
+'--------------------------------
+'----- External Data Parser -----  
 
-[External to Internal Message Translator] as EIMT
+[] as EIMT
 
 note top of EIMT
   Purpose:
