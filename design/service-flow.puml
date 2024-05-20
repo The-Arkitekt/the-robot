@@ -11,18 +11,28 @@ repeat
   * Consumes RemoteOutboundData from MessageBroker
   * Transmits data from RemoteOutboundData to connected client; 
 
-:Remote Data Receiver
+:Remote Data Entrance  
   * Consumes RemoteInboundData from MessageBroker
   * Translates RemoteInboundData
   * Produces translated message to MessageBroker;
 
-:DriveController
-  * Consumes DriveStateCommand from MessageBroker
-  * Transmits Control data to drive system hardware
-  * Receives Status data from drive system hardware
+:Drive Status
+  * Receives signals from drive system hardware
+  * Translates signals from hardware to DriveStateStatus messages
   * Produces DriveStateStatus to MessageBroker;
 
-:Remote Data Transmitter
+:DriveController
+  * Consumes DriveStateCommand from MessageBroker
+  * Consumes DriveStatus from MessageBroker
+  * Generates DriveControlCommand using control algorithm
+  * Produces DriveControlCommand to MessageBroker;
+
+:Drive Sender
+  * Consumes DriveControlCommand from MessageBroker
+  * Translates DriveControlCommand to signals for the hardware
+  * Transmits data to drive system hardware;
+
+:Remote Data Exit
   * Consumes target messages from MessageBroker
   * Translates target messages to RemoteOutboundData messages
   * Produces RemoteOutboundData messages to MessageBroker;
