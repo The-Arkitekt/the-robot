@@ -1,60 +1,33 @@
 @startuml
 
-'-------------------------------
-'----- Drive Controller --------
+node "Services" {
+  [Remote Access Gateway] as RAG
+  [Remote Data Inlat]     as RDI
+  [Drive Status Reporter] as DSR
+  [Drive Controller]      as DC
+  [Drive Operator]        as DO
+  [Remote Data Outlet]    as RDO
 
-[Drive Controller] as DC
+  HTTP - RAG
+}
 
-note top of DC
-  Purpose:
-    Control the state of the robot drive system. 
-end note
+node "MiddleWare" {
+  [Message Broker] as MB
 
+  "TCP/UART" -down- MB
+}
 
-'----------------------------------
-'----- Remote Access Gateway ------
+node "Infrastructure" {
+  [Hardware Interface] as HI
+}
 
-[Remote Access Gateway] as TG
+RAG -down-> "TCP/UART"
+RDI -down-> "TCP/UART"
+DSR -down-> "TCP/UART"
+DC  -down-> "TCP/UART"
+DO  -down-> "TCP/UART"
+RDO -down-> "TCP/UART"
 
-note top of TG
-  Purpose:
-    Access point for remote client(s)
-end note
-
-
-'--------------------------------
-'----- External Data Parser -----  
-
-[] as EIMT
-
-note top of EIMT
-  Purpose:
-    Translate messages from remote client(s)
-    to internal messages
-end note
-
-'-----------------------------------------------
-'----- Internal Message Broker Definition ------
-
-[Internal Message Broker] as IMB
-
-note top of IMB
-  Purpose:
-    Intermediary between internal 
-    message producers and consumers
-end note
-
-'----------------------------------------------
-'----- External Message Broker Definition -----
-
-[External Message Broker] as EMB
-
-note top of EMB
- Purpose:
-   Intermediary between external 
-   message producers and consumers
-end note
-
-
+DO -right-> HI
 
 @enduml
