@@ -1,0 +1,44 @@
+***********************************************
+*                                             *
+*            Version 1 Planning               *
+*                                             *
+***********************************************
+
+*****************
+* Features
+
+  1. The robot will have a chassis with the ability
+     to drive on a 2-D plane
+
+  2. The robot will drive based on received
+     commands from a remote client user.
+
+  3. The robot will report drive status (speed, direction, etc..)
+     to the remote client user.
+
+******************
+* Time span
+
+  1. Start: 5-22-24
+  2. End:   8-22-24
+
+************************
+* Steps to Completion
+
+  1. Initial Pub/Sub infrastructure
+
+  2. Initial classes done
+
+  3. Class objects communicating using Pub/Sub infrastructure
+
+  4. Software building and running on HW with debug`
+
+  5. Communicating with Motors
+
+  6. Remote client communication over UART
+
+  7. Remote client communication over Wifi using NodeMCU in the middle
+
+  8. Build Chassis
+  
+

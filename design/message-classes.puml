@@ -1,0 +1,78 @@
+@startuml
+
+interface Publisher
+{
+  + virtual setTopic(const char* const topicName)
+  + virtual publish(Message& message) : void
+}
+
+interface Subscriber
+{
+  + virtual setTopic(const char* const topicName) : void
+  + virtual setCapacity(const uint8_t size) : void
+  + virtual capacity() : uint8_t
+  + virtual size() : uint8_t
+  + virtual push(Message& message) : void
+  + virtual pop() : Message&
+  + virtual clear() : void
+}
+
+interface Message
+{
+  + virtual init() : void
+  + virtual size() : uint32_t
+  + virtual uint8_t const * const pack() : void
+  + virtual unpack(uint8_t const * const data, const uint32_t size) : void
+}
+
+class SingletonBrokerPublisher
+{
+   - topicName : const char*
+}
+
+class SingletonBrokerSubscriber
+{
+  - topicName : const char*
+  - queue : Message*
+}
+
+class SingletonMessageBroker
+{
+  + static getInstance() : SingletonMessageBroker* const
+  + static killInstance() : void
+  + register(char const * const topicName, Subscriber& subscriber)
+  + updateTopic(char const * const topicName, Message& message) : void
+
+  - instance : SingletonMessageBroker*
+  - numTopics : uint8_t
+  - topics : Topic*
+}
+
+class Topic
+{
+  + Topic(char const * const name)
+  + addSubscriber(Subscriber& subscriber) : void
+  + numSubscribers() : const uint8_t
+
+  - numSubscribers : uint8_t
+  - name : char * const *
+  - subscribers : Subscriber&*
+}
+
+SingletonBrokerPublisher -|> Publisher
+SingletonBrokerSubscriber -|> Subscriber
+
+Publisher ..> Message
+Subscriber ..> Message
+
+SingletonBrokerSubscriber o--> Message
+
+SingletonBrokerPublisher ..> SingletonMessageBroker
+SingletonBrokerSubscriber ..> SingletonMessageBroker
+
+SingletonMessageBroker ..> Subscriber
+SingletonMessageBroker o--> Topic
+
+Topic o--> Subscriber
+
+@enduml

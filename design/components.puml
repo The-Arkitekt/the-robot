@@ -13,21 +13,19 @@ node "Services" {
 
 node "MiddleWare" {
   [Message Broker] as MB
-
-  "TCP/UART" -down- MB
 }
 
 node "Infrastructure" {
   [Hardware Interface] as HI
 }
 
-RAG -down-> "TCP/UART"
-RDI -down-> "TCP/UART"
-DSR -down-> "TCP/UART"
-DC  -down-> "TCP/UART"
-DO  -down-> "TCP/UART"
-RDO -down-> "TCP/UART"
+RAG .down.> MB
+RDI .down.> MB
+DSR .down.> MB
+DC  .down.> MB
+DO  .down.> MB
+RDO .down.> MB
 
-DO -right-> HI
+DO .right.> HI
 
 @enduml
