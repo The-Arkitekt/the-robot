@@ -2,15 +2,18 @@
 #DEFINE SINGLETON_MESSAGE_BROKER_H
 
 #include "Subscriber.h"
+#include "Topic.h"
 
 class SingletonMessageBroker
 {
 public:
 
-  static const uint8_t MAX_SUBSCRIBERS;
+  static const uint8_t MAX_TOPICS;
 
   static SingletonMessageBroker * const getInstance();
   static void                           killInstance();
+
+  const uint8_t numTopics() const;
 
   void register(char const * const topicName, Subscriber& subscriber);  
   void update(char const * const topicName, Message& message) const;
@@ -21,8 +24,8 @@ private:
   ~SingletonMessageBroker();
 
   SingletonMessageBroker * instance;
-  Subscriber **            subscribers;
-  uint8_t                  numSubscribers;
+  uint8_t                  numTopics;
+  Topic **                 topics;
 }
 
 #ENDIF // SINGLETON_MESSAGE_BROKER_H

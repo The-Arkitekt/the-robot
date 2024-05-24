@@ -21,6 +21,11 @@ Topic::~Topic()
   }
 }
 
+char const * const name() const
+{
+  return name;
+}
+
 const uint8_t Topic::numSubscribers() const
 {
   return numSubscribers;
@@ -34,7 +39,7 @@ void Topic::addSubscriber(Subscriber& subscriber)
   }
   
   // Reallocate a new subscribers list with one more memory location for the new subscriber
-  Subscriber** newSubscribers = new((numSubscribers + 1) * sizeof(Subscriber*), std::nothrow) Subscriber*;
+  Subscriber ** newSubscribers = new((numSubscribers + 1), std::nothrow) Subscriber *;
   if (nullptr == newSubscribers)
   {
     // Allocation failed
@@ -48,7 +53,7 @@ void Topic::addSubscriber(Subscriber& subscriber)
   }
 
   // Set the new subscriber at the end of new list
-  newSubscribers[++numSubscribers] = subscriber;
+  newSubscribers[numSubscribers++] = subscriber;
 
   // Free old subscribers pointer, not each subscriber!
   if (nullptr != subscribers)
@@ -61,5 +66,16 @@ void Topic::addSubscriber(Subscriber& subscriber)
   subscribers = newSubscribers;
 }
 
-  
+void Topic::update(Message& message) const
+{
+  for (uint8_t i = 0U; i < numSubscribers; ++i)
+  {
+    subscribers[i]->push(message);
+  }
+}
+
+
+
+}
+
 

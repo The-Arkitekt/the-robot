@@ -2,6 +2,7 @@
 #DEFINE TOPIC_H
 
 #include "Subscriber.h"
+#include "Message.h"
 
 class Topic
 {
@@ -12,14 +13,16 @@ public:
   Topic(char const * const name);
   ~Topic();
 
-  const uint8_t numSubscribers() const;
-  void addSubscriber(Subscriber& subscriber);
+  char const * const name() const;
+  const uint8_t      numSubscribers() const;
+  void               addSubscriber(Subscriber& subscriber);
+  void               update(Message& message) const;
 
 private:
 
   uint8_t            numSubscribers;
   char const * const name;
-  Subscriber**       subscribers;
+  Subscriber **      subscribers;
 
 }
 

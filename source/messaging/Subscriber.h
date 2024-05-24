@@ -7,9 +7,8 @@ class Subscriber
 {
 public:
 
-  virtual void          setTopic(char * const * topicName) = 0;
-  virtual void          setCapacity(const uint8_t cap)     = 0;
-  virtual const uint8_t capacity() const                   = 0;
+  static const uint8_t MAX_MESSAGES_PER_SUBSCRIBER = 255U;
+
   virtual const uint8_t size() const                       = 0;
   virtual void          push(Message& message)             = 0;
   virtual void          pop(Message& message)              = 0;
