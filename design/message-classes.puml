@@ -15,10 +15,17 @@ interface Subscriber
 
 interface Message
 {
-  + virtual init() : void
-  + virtual size() : uint32_t
+  + virtual clear() : void
+  + virtual size() : const uint32_t const
   + virtual pack() : uint8_t const * const
   + virtual unpack(uint8_t const * const data, const uint32_t size) : void
+}
+
+class DriveStateCommand
+{
+  + xDirection : int8_t
+  + yDirection : int8_t
+  + zDirection : int8_t
 }
 
 class SingletonBrokerPublisher
@@ -79,5 +86,7 @@ SingletonMessageBroker o--> Topic
 
 Topic o--> Subscriber
 Topic ..> Message
+
+DriveStateCommand -up-|> Message
 
 @enduml

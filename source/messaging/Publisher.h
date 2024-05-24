@@ -1,5 +1,5 @@
-#IFNDEF PUBLISHER_H
-#DEFINE PUBLISHER_H
+#ifndef PUBLISHER_H
+#define PUBLISHER_H
 
 #include "Message.h"
 
@@ -11,4 +11,4 @@ public:
 
 }
 
-#ENDIF // PUBLISHER_H
+#endif // PUBLISHER_H

@@ -2,30 +2,31 @@
 
 node "Services" {
   [Remote Access Gateway] as RAG
-  [Remote Data Inlat]     as RDI
+  [Remote Data Entrance]     as RDE
   [Drive Status Reporter] as DSR
   [Drive Controller]      as DC
   [Drive Operator]        as DO
-  [Remote Data Outlet]    as RDO
-
-  HTTP - RAG
+  [Remote Data Exit]    as RDE
 }
 
 node "MiddleWare" {
-  [Message Broker] as MB
+  [Messaging] as MSG
 }
 
 node "Infrastructure" {
   [Hardware Interface] as HI
 }
 
-RAG .down.> MB
-RDI .down.> MB
-DSR .down.> MB
-DC  .down.> MB
-DO  .down.> MB
-RDO .down.> MB
+RAG .down.> MSG
+RDE .down.> MSG
+DSR .down.> MSG
+DC  .down.> MSG
+DO  .down.> MSG
+RDE .down.> MSG
 
-DO .right.> HI
+RAG .down.> HI
+DSR .down.> HI
+DO .down.> HI
+
 
 @enduml

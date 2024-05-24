@@ -1,5 +1,5 @@
-#IFNDEF TOPIC_H
-#DEFINE TOPIC_H
+#ifndef TOPIC_H
+#define TOPIC_H
 
 #include "Subscriber.h"
 #include "Message.h"
@@ -26,4 +26,4 @@ private:
 
 }
 
-#ENDIF // TOPIC_H
+#endif // TOPIC_H

@@ -1,5 +1,5 @@
-#IFNDEF SINGLETON_MESSAGE_BROKER_H
-#DEFINE SINGLETON_MESSAGE_BROKER_H
+#ifndef SINGLETON_MESSAGE_BROKER_H
+#define SINGLETON_MESSAGE_BROKER_H
 
 #include "Subscriber.h"
 #include "Topic.h"
@@ -28,4 +28,4 @@ private:
   Topic **                 topics;
 }
 
-#ENDIF // SINGLETON_MESSAGE_BROKER_H
+#endif // SINGLETON_MESSAGE_BROKER_H

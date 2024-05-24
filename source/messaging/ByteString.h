@@ -1,5 +1,5 @@
-#IFNDEF BYTE_STRING_H
-#DEFINE BYTE_STRING_H
+#ifndef BYTE_STRING_H
+#define BYTE_STRING_H
 
 class ByteString
 {
@@ -16,4 +16,4 @@ public:
 
 }
 
-#ENDIF // BYTE_STRING_H
+#endif // BYTE_STRING_H

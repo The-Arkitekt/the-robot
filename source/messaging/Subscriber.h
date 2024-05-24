@@ -1,5 +1,5 @@
-#IFNDEF SUBSCRIBER_H
-#DEFINE SUBSCRIBER_H
+#ifndef SUBSCRIBER_H
+#define SUBSCRIBER_H
 
 #include "Message.h"
 
@@ -17,4 +17,4 @@ public:
 }
 
 
-#ENDIF // SUBSCRIBER_H
+#endif // SUBSCRIBER_H
