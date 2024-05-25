@@ -17,7 +17,7 @@ USER development-user
 WORKDIR /home/development-user
 
 # Update packages and get dependencies
-RUN echo $password | sudo -S pacman -S --noconfirm gcc git neovim tmux cmake
+RUN echo $password | sudo -S pacman -S --noconfirm gcc git neovim tmux make cmake
 
 # Add the nvim config directory to container so nvim can use it
 ADD dev-environment/neovim-config/ .config/nvim/
@@ -30,6 +30,3 @@ RUN echo $password | sudo -S chown -R development-user design/
 # Add the project source code to container
 ADD source/ source/
 RUN echo $password | sudo -S chown -R development-user source/
-
-# Set the entrypoint for when this container is run
-ENTRYPOINT tmux

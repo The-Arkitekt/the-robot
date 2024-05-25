@@ -1,6 +1,8 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include <cstdint>
+
 class Message
 {
 public:
@@ -10,6 +12,6 @@ public:
   virtual uint8_t const * const pack()                                                  = 0;
   virtual void                  unpack(uint8_t const * const data, const uint32_t size) = 0;
 
-}
+};
 
 #endif // MESSAGE_H

@@ -10,20 +10,7 @@ SingletonBrokerSubscriber::SingletonBrokerSubscriber(char const * const topicNam
 
 SingletonBrokerSubscriber::~SingletonBrokerSubscriber()
 {
-  if (nullptr != messageData)
-  {
-    for (uint8_t i = 0U; i < numMessages; ++i)
-    {
-      if (nullptr != messageData[i].bytes)
-      {
-        delete(messageData[i].bytes);
-        messageData[i].bytes = nullptr;
-      }
-    }
-    
-    delete(messageData);
-    messageData = nullptr;
-  }
+  clear();
 }
 
 uint8_t SingletonBrokerSubscriber::size() const
@@ -39,39 +26,28 @@ void SingletonBrokerSubscriber::push(Message& message)
     return;
   }
 
-  // Get byte data from message
-  uint8_t * messageBytes = message.pack();
-  if (nullptr == messageBytes)
-  {
-    return;
-  }
-
-  // Create byte string to add to queue
-  uint8_t * newMessageData = new (message.size(), std::nothrow) uint8_t;
-  if (nullptr == newMessageData)
-  {
-    return;
-  }
-
-  // Populate new Byte string with message data
-  for (uint8_t i = 0U; i < message.size(); ++i)
-  {
-    newMessageData[i] = messageBytes[i];
-  }
-
-  ByteString * newByteData = new (std::nothrow) ByteString(newMessageData, message.size());
+  // Create new ByteString object to hold the message data
+  ByteString * newByteData = new (std::nothrow) ByteString(message.pack(), message.size());
   if (nullptr == newByteData)
   {
-    delete(newMessageData);
+    delete[] newMessageData;
+    return;
+  }
+
+  // Make sure ByteString was created successfully
+  if ((nullptr == newByteData.bytes) || (0U == newByteData.size))
+  {
+    delete[] newMessageData;
+    delete[] newByteData;
     return;
   }
 
   // Replace queue
-  ByteString ** newMessagesData = new ((numMessages + 1), std::nothrow) ByteString *;
+  ByteString * newMessagesData = new (std::nothrow) ByteString[numMesages + 1U];
   if (nullptr == newMessagesData)
   {
-    delete(newMessageData);
-    delete(newByteData);
+    delete[] newMessageData;
+    delete[] newByteData;
     return;
   }
 
@@ -85,8 +61,7 @@ void SingletonBrokerSubscriber::push(Message& message)
 
   if (nullptr != messagesData)
   {
-    delete(messgesData);
-    messagesData = nullptr;
+    delete[] messagesData;
   }
 
   messagesData = newMessagesData;
@@ -102,7 +77,7 @@ void SingletonBrokerSubscriber::pop(Message& message)
   message.unpack(messagesData[0U].bytes, messagesData[0U].size);
 
   // Replace Queue
-  ByteString ** newMessagesData = new ((numMessages - 1), std::nothrow) ByteString *;
+  ByteString * newMessagesData = new (std::nothrow) ByteString[numMessages - 1U];
   if (nullptr == newMessagesData)
   {
     return;
@@ -114,26 +89,19 @@ void SingletonBrokerSubscriber::pop(Message& message)
     newMessagesData[i] = messagesData[i];
   }
 
-  delete(messagesData);
+  delete[] messagesData;
   messagesData = newMessagesData;
   numMessages--;
 }
 
 void SingletonBrokerSubscriber::clear()
 {
-  if (nullptr != messagesData)
+  for (uint8_t i = 0U; i < numMessages; ++i)
   {
-    for (uint8_t i = 0U; i < numMessages; ++i)
-    {
-      if (nullptr != messagesData[i].bytes)
-      {
-        delete(messagesData[i].bytes;
-        messagesData[i].bytes = nullptr;
-      }
-    }
+    delete messagesData[i];
+  } 
   
-    delete(messagesData);
-    messagesData = nullptr;
-  }
+  delete(messagesData);
+  messagesData = nullptr;
 }
 

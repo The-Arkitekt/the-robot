@@ -1,5 +1,4 @@
-#include "Topic.h"
-#include <new>
+#include "Topic.h"`1
 
 const uint8_t MAX_SUBSCRIBERS_PER_TOPIC = 255U;
 
@@ -14,11 +13,8 @@ Topic::~Topic()
   // Only delete the one pointer because 
   // Subscribers are passed as a reference
   // and not allocated in this class
-  if (nullptr != subscribers)
-  {
-    delete(subscribers);
-    subscribers = nullptr;
-  }
+  delete[] subscribers;
+  subscribers = nullptr;
 }
 
 char const * const name() const
@@ -39,7 +35,7 @@ void Topic::addSubscriber(Subscriber& subscriber)
   }
   
   // Reallocate a new subscribers list with one more memory location for the new subscriber
-  Subscriber ** newSubscribers = new((numSubscribers + 1), std::nothrow) Subscriber *;
+  Subscriber ** newSubscribers = new(std::nothrow) Subscriber *[numSubscribers + 1U];
   if (nullptr == newSubscribers)
   {
     // Allocation failed
@@ -53,13 +49,12 @@ void Topic::addSubscriber(Subscriber& subscriber)
   }
 
   // Set the new subscriber at the end of new list
-  newSubscribers[numSubscribers++] = subscriber;
+  newSubscribers[numSubscribers++] = &subscriber;
 
   // Free old subscribers pointer, not each subscriber!
   if (nullptr != subscribers)
   {
-    delete subscribers;
-    subscribers = nullptr;
+    delete[] subscribers;
   }
 
   // Set subscribers to new list

@@ -5,6 +5,8 @@ project(the-robot-gtest)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+########################################
+# GTEST stuff
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -17,17 +19,42 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+#########################################
+# Setup files and directories
+set(MESSAGING_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../messaging/")
+add_subdirectory(${MESSAGING_DIR} messaging_bld)
+
+list(APPEND LINK_LIBRARIES
+  Messaging
+)
+
+list(APPEND INCLUDE_DIRS
+  ${MESSAGING_DIR}
+)
+
+list(APPEND SOURCES
+  "DriveStateCommand-test.cpp"
+)
+
+########################################
+# Setup project
 add_executable(
-  Message-test
-  Message-test.cpp
+  TheRobot-test
+  ${SOURCES}
+)
+
+target_include_directories(
+  TheRobot-test PUBLIC
+  ${INCLUDE_DIRS}
 )
 
 target_link_libraries(
-  Message-test
+  TheRobot-test PUBLIC
+  ${LINK_LIBRARIES}
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(Message-test)
+gtest_discover_tests(TheRobot-test)
 
 

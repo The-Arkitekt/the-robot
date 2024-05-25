@@ -1,4 +1,5 @@
 #include "DriveStateCommand.h"
+#include <new>
 
 DriveStateCommand::DriveStateCommand():
   xDirection (0),
@@ -20,19 +21,17 @@ DriveStateCommand::DriveStateCommand(const int8_t xDirection,
 
 DriveStateCommand::~DriveStateCommand()
 {
-  clear();
+  init();
 }
 
-void DriveStateCommand::clear()
+void DriveStateCommand::init()
 {
   xDirection = 0;
   yDirection = 0;
   zDirection = 0;
-  if (nullptr != packedBytes)
-  {
-    delete(packedBytes);
-    packedBytes = nullptr;
-  }
+  
+  delete[] packedBytes;
+  packedBytes = nullptr;
 }
 
 const uint32_t DriveStateCommand::size() const
@@ -42,12 +41,11 @@ const uint32_t DriveStateCommand::size() const
 
 uint8_t const * const DriveStateCommand::pack()
 {
-  if (nullptr != packedBytes)
+  if (nullptr == packedBytes)
   {
-    delete(packedBytes);
+    packedBytes = new (std::nothrow) uint8_t[DriveStateCommand::SIZE];
   }
-
-  packedBytes = new (DriveStateCommand::SIZE, std::nothrow) uint8_t;
+  
   if (nullptr != packedBytes)
   {
     packedBytes[0U] = static_cast<uint8_t>(xDirection);

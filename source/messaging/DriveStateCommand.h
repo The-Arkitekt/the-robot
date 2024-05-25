@@ -13,7 +13,7 @@ public:
                     const int8_t zDirection);
   ~DriveStateCommand();
 
-  void                  clear();
+  void                  init();
   const uint32_t        size() const;
   uint8_t const * const pack();
   void                  unpack(uint8_t const * const data, const uint32_t size);
@@ -26,6 +26,7 @@ private:
 
   static const uint32_t SIZE = 3U;
   uint8_t * packedBytes;
-}
+
+};
 
 #endif // DRIVE_STATE_COMMAND_H
