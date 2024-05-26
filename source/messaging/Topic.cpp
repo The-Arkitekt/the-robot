@@ -1,9 +1,9 @@
-#include "Topic.h"`1
+#include "Topic.h"
 
 const uint8_t MAX_SUBSCRIBERS_PER_TOPIC = 255U;
 
 Topic::Topic(char const * const name):
-  name       (name),
+  topicName  (name),
   subscribers(nullptr)
 {
 }
@@ -19,12 +19,7 @@ Topic::~Topic()
 
 char const * const name() const
 {
-  return name;
-}
-
-const uint8_t Topic::numSubscribers() const
-{
-  return numSubscribers;
+  return topicName;
 }
 
 void Topic::addSubscriber(Subscriber& subscriber)

@@ -1,49 +1,7 @@
 #include <gtest/gtest.h>
 #include "SingletonMessageBroker.h"
-#include "Subscriber.h"
-
-class TestSubscriber : public Subscriber
-{
-public:
-
-  TestSubscriber():
-    messageData(nullptr)
-  {
-  };
-
-  ~TestSubscriber()
-  {
-  };
-
-  const uint8_t size() const 
-  {
-    return 1U;
-  }
-
-  void push(Message& message)
-  {
-    if (nullptr != this->message)
-    {
-      this->message->unpack(message.pack(), message.size());
-    }
-  }
-
-  void pop(Message& message)
-  {
-    if (nullptr != this->message)
-    {
-      message.unpack(this->message->pack(), this->message->size())
-    }
-  }
-
-  void clear()
-  {
-    delete[] messageData;
-  }
-
-  uint8_t * messageData;
-
-}
+#include "TestMessage.h"
+#include "TestSubscriber.h"
 
 class SingletonMessageBrokerTest : public testing::Test
 {
@@ -59,7 +17,7 @@ protected:
     delete broker;
   }
 
-   void SetUp() override 
+  void SetUp() override 
   {
     ASSERT_NE(nullptr, broker);
   }
@@ -87,3 +45,35 @@ TEST_F(SingletonMessageBrokerTest, KillInstance)
 
   EXPECT_EQ(nullptr, broker);
 }
+
+TEST_F(SingletonMessageBrokerTest, RegisterSubscriber)
+{
+  TestSubscriber subscriber;
+
+  broker->registerSubscriber("TestTopic", subscriber);
+
+  EXPECT_EQ(1U, broker->size());
+
+  broker->registerSubscriber("NextTestTopic", subscriber);
+
+  EXPECT_EQ(2U, broker->size());
+}
+
+TEST_F(SingletonMessageBrokerTest, UpdateTopic)
+{
+  TestSubscriber subscriber;
+
+  broker->registerSubscriber("TestTopic", subscriber);
+  ASSERT_EQ(1U, broker->size());
+
+  TestMessage message;
+  message.messageValue = 69U; // Nice!
+
+  broker->update("TestTopic", message);
+
+  TestMessage receivedMessage;
+  subscriber.pop(receivedMessage);
+
+  EXPECT_EQ(69U, receivedMessage.messageValue);
+}
+

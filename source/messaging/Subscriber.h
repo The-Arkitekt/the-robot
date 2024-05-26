@@ -14,7 +14,7 @@ public:
   virtual void          pop(Message& message)              = 0;
   virtual void          clear()                            = 0;
 
-}
+};
 
 
 #endif // SUBSCRIBER_H

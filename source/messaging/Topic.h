@@ -14,16 +14,15 @@ public:
   ~Topic();
 
   char const * const name() const;
-  const uint8_t      numSubscribers() const;
   void               addSubscriber(Subscriber& subscriber);
   void               update(Message& message) const;
 
 private:
 
   uint8_t            numSubscribers;
-  char const * const name;
+  char const * const topicName;
   Subscriber **      subscribers;
 
-}
+};
 
 #endif // TOPIC_H

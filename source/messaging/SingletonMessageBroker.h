@@ -13,9 +13,9 @@ public:
   static SingletonMessageBroker * const getInstance();
   static void                           killInstance();
 
-  const uint8_t numTopics() const;
+  const uint8_t size() const;
 
-  void register(char const * const topicName, Subscriber& subscriber);  
+  void registerSubscriber(char const * const topicName, Subscriber& subscriber);  
   void update(char const * const topicName, Message& message) const;
 
 private:

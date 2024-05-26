@@ -32,12 +32,12 @@ void SingletonMessageBroker::killInstance()
   instance = nullptr;
 }
 
-const uint8_t SingletonMessageBroker::numTopics() const
+const uint8_t SingletonMessageBroker::size() const
 {
   return numTopics;
 }
 
-void SingletonMessageBroker::register(char const * const topicName, Subscriber& subscriber)
+void SingletonMessageBroker::registerSubscriber(char const * const topicName, Subscriber& subscriber)
 {
   if (MAX_TOPICS == numTopics)
   {
@@ -63,11 +63,6 @@ void SingletonMessageBroker::register(char const * const topicName, Subscriber& 
   }
 
   newTopic->addSubscriber(subscriber);
-  if (0U == newTopic->numSubscribers())
-  {
-    delete newTopic;
-    return;
-  }
 
   Topic ** newTopics = new (std::nothrow) Topic *[numTopics + 1U];
   if (nullptr == newTopics)

@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ########################################
 # GTEST stuff
+#
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -21,6 +22,7 @@ enable_testing()
 
 #########################################
 # Setup files and directories
+#
 set(MESSAGING_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../messaging/")
 add_subdirectory(${MESSAGING_DIR} messaging_bld)
 
@@ -34,10 +36,12 @@ list(APPEND INCLUDE_DIRS
 
 list(APPEND SOURCES
   "DriveStateCommand-test.cpp"
+  "SingletonMessageBroker-test.cpp"
 )
 
 ########################################
 # Setup project
+#
 add_executable(
   TheRobot-test
   ${SOURCES}
