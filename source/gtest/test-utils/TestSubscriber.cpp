@@ -1,4 +1,5 @@
 #include "TestSubscriber.h"
+#include <new>
 
 TestSubscriber::TestSubscriber():
   messageData(nullptr)
@@ -10,7 +11,7 @@ TestSubscriber::~TestSubscriber()
   clear();
 }
 
-const uint8_t size() const
+const uint8_t TestSubscriber::size() const
 {
   if (nullptr == messageData) 
   {

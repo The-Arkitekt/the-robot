@@ -1,7 +1,8 @@
 #include "TestMessage.h"
+#include <new>
 
 TestMessage::TestMessage():
-  messageValue(0U);
+  messageValue(0U)
 {
 }
 

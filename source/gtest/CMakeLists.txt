@@ -23,15 +23,20 @@ enable_testing()
 #########################################
 # Setup files and directories
 #
-set(MESSAGING_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../messaging/")
-add_subdirectory(${MESSAGING_DIR} messaging_bld)
+set(MESSAGING_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/../messaging/")
+set(TEST_UTILS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/test-utils/")
+
+add_subdirectory(${MESSAGING_DIR}  messaging_bld)
+add_subdirectory(${TEST_UTILS_DIR} testutils_bld)
 
 list(APPEND LINK_LIBRARIES
   Messaging
+  TestUtils
 )
 
 list(APPEND INCLUDE_DIRS
   ${MESSAGING_DIR}
+  ${TEST_UTILS_DIR}
 )
 
 list(APPEND SOURCES
@@ -60,5 +65,3 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(TheRobot-test)
-
-

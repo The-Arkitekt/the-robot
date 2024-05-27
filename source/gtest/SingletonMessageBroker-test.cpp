@@ -9,67 +9,46 @@ protected:
 
   SingletonMessageBrokerTest() 
   {
-    broker = SingletonMessageBroker::getInstance();
   }
 
   ~SingletonMessageBrokerTest() override 
   {
-    delete broker;
+    SingletonMessageBroker::killInstance();
   }
 
   void SetUp() override 
   {
-    ASSERT_NE(nullptr, broker);
   }
 
   void TearDown() override 
   {
   }
-
-public:
-
-  SingletonMessageBroker * broker;
-
 };
-
-TEST_F(SingletonMessageBrokerTest, GetInstance)
-{
-  SingletonMessageBroker * testBrokerInstance = SingletonMessageBroker::getInstance();
-
-  EXPECT_EQ(broker, testBrokerInstance);
-}
-
-TEST_F(SingletonMessageBrokerTest, KillInstance)
-{
-  SingletonMessageBroker::killInstance();
-
-  EXPECT_EQ(nullptr, broker);
-}
 
 TEST_F(SingletonMessageBrokerTest, RegisterSubscriber)
 {
   TestSubscriber subscriber;
 
-  broker->registerSubscriber("TestTopic", subscriber);
+  SingletonMessageBroker::registerSubscriber("TestTopic", subscriber);
 
-  EXPECT_EQ(1U, broker->size());
+  EXPECT_EQ(1U, SingletonMessageBroker::size());
 
-  broker->registerSubscriber("NextTestTopic", subscriber);
+  SingletonMessageBroker::registerSubscriber("NextTestTopic", subscriber);
 
-  EXPECT_EQ(2U, broker->size());
+  EXPECT_EQ(2U, SingletonMessageBroker::size());
 }
 
 TEST_F(SingletonMessageBrokerTest, UpdateTopic)
 {
   TestSubscriber subscriber;
 
-  broker->registerSubscriber("TestTopic", subscriber);
-  ASSERT_EQ(1U, broker->size());
+  SingletonMessageBroker::registerSubscriber("TestTopic", subscriber);
+  ASSERT_EQ(1U, SingletonMessageBroker::size());
 
   TestMessage message;
   message.messageValue = 69U; // Nice!
 
-  broker->update("TestTopic", message);
+  SingletonMessageBroker::updateTopic("TestTopic", message);
 
   TestMessage receivedMessage;
   subscriber.pop(receivedMessage);

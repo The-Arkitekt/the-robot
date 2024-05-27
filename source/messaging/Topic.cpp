@@ -1,6 +1,7 @@
 #include "Topic.h"
+#include <new>
 
-const uint8_t MAX_SUBSCRIBERS_PER_TOPIC = 255U;
+const uint8_t Topic::MAX_SUBSCRIBERS_PER_TOPIC = 255U;
 
 Topic::Topic(char const * const name):
   topicName  (name),
@@ -17,7 +18,7 @@ Topic::~Topic()
   subscribers = nullptr;
 }
 
-char const * const name() const
+char const * const Topic::name() const
 {
   return topicName;
 }
@@ -63,9 +64,3 @@ void Topic::update(Message& message) const
     subscribers[i]->push(message);
   }
 }
-
-
-
-}
-
-

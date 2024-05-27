@@ -15,7 +15,7 @@ public:
   void          pop(Message& message);
   void          clear();
 
-  uint8_t * messageData;
-}
+  const uint8_t * messageData;
+};
 
 #endif // TEST_SUBSCRIBER_H
