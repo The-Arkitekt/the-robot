@@ -23,6 +23,12 @@ const uint8_t TestSubscriber::size() const
 
 void TestSubscriber::push(Message& message)
 {
+  const uint8_t * fromMessage = message.pack();
+  if (nullptr == fromMessage)
+  {
+    return;
+  }
+
   clear();
 
   messageData = new (std::nothrow) uint8_t[message.size()];
@@ -30,8 +36,11 @@ void TestSubscriber::push(Message& message)
   {
     return;
   }
-
-  messageData = message.pack();
+  
+  for (uint8_t i = 0U; i < message.size(); ++i)
+  {
+    messageData[i] = fromMessage[i];
+  }
 }
 
 void TestSubscriber::pop(Message& message)
@@ -47,7 +56,12 @@ void TestSubscriber::pop(Message& message)
 
 void TestSubscriber::clear()
 {
-  delete[] messageData;
+  if (nullptr != messageData)
+  {
+    delete[] messageData;
+  }
+
+  messageData = nullptr;
 }
 
 

@@ -4,8 +4,9 @@
 const uint8_t Topic::MAX_SUBSCRIBERS_PER_TOPIC = 255U;
 
 Topic::Topic(char const * const name):
-  topicName  (name),
-  subscribers(nullptr)
+  numSubscribers(0U),
+  topicName     (name),
+  subscribers   (nullptr)
 {
 }
 
