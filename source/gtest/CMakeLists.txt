@@ -42,6 +42,7 @@ list(APPEND INCLUDE_DIRS
 list(APPEND SOURCES
   "DriveStateCommand-test.cpp"
   "SingletonMessageBroker-test.cpp"
+  "SingletonBrokerPublisher-test.cpp"
 )
 
 ########################################

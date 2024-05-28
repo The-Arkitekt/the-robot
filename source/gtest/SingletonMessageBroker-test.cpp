@@ -46,13 +46,13 @@ TEST_F(SingletonMessageBrokerTest, UpdateTopic)
   ASSERT_EQ(1U, SingletonMessageBroker::size());
 
   TestMessage message;
-  message.messageValue = 69U; // Nice!
+  message.value = 69U; // Nice!
 
   SingletonMessageBroker::updateTopic("TestTopic", message);
 
   TestMessage receivedMessage;
   subscriber.pop(receivedMessage);
 
-  EXPECT_EQ(69U, receivedMessage.messageValue);
+  EXPECT_EQ(69U, receivedMessage.value);
 }
 

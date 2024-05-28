@@ -1,4 +1,5 @@
 #include "SingletonBrokerSubscriber.h"
+#include "SingletonMessageBroker.h"
 
 const uint8_t SingletonBrokerSubscriber::MAX_MESSAGES_PER_SUBSCRIBER = 255U;
 
@@ -6,6 +7,7 @@ SingletonBrokerSubscriber::SingletonBrokerSubscriber(char const * const topicNam
   numMessages(0U),
   messageData(nullptr)
 {
+  SingletonMessageBroker::registerSubscriber(topicName, *this);
 }
 
 SingletonBrokerSubscriber::~SingletonBrokerSubscriber()

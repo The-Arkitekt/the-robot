@@ -7,15 +7,15 @@ class SingletonBrokerPublisher : public Publisher
 {
 public:
 
-  SingletonBrokerPublisher(char * const * topicName);
+  SingletonBrokerPublisher(char const * const  topicName);
   ~SingletonBrokerPublisher();
 
-  void publish(const Message& message);
+  void publish(Message& message);
 
 private:
 
-  char * const *           topicName;
-  SingletonMessageBroker * messageBroker;
-}
+  char const * const topicName;
+
+};
 
 #endif // SINGLETON_BROKER_PUBLISHER_H

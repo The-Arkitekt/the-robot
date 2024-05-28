@@ -7,8 +7,8 @@ class Publisher
 {
 public:
 
-  virtual void publish(const Message& message) = 0;
+  virtual void publish(Message& message) = 0;
 
-}
+};
 
 #endif // PUBLISHER_H

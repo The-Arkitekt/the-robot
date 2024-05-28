@@ -2,7 +2,7 @@
 #include <new>
 
 TestMessage::TestMessage():
-  messageValue(0U)
+  value(0U)
 {
 }
 
@@ -12,7 +12,7 @@ TestMessage::~TestMessage()
 
 void TestMessage::init()
 {
-  messageValue = 0U;
+  value = 0U;
 }
 
 const uint32_t TestMessage::size() const
@@ -22,7 +22,7 @@ const uint32_t TestMessage::size() const
 
 uint8_t const * const TestMessage::pack()
 {
-  return &messageValue;
+  return &value;
 }
 
 void TestMessage::unpack(uint8_t const * const data, const uint32_t size)
@@ -32,7 +32,7 @@ void TestMessage::unpack(uint8_t const * const data, const uint32_t size)
     return;
   }
 
-  messageValue = *data;
+  value = *data;
 }
 
 
