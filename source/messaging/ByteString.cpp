@@ -1,4 +1,5 @@
 #include "ByteString.h"
+#include <new>
 
 const uint8_t ByteString::MAX_BYTE_STRING_LENGTH = 255U;
 
@@ -9,7 +10,7 @@ ByteString::ByteString():
 {
 }
 
-ByteString::ByteString(uint8_t const * const bytes, const uint8_t size)
+ByteString::ByteString(uint8_t const * const bytes, const uint8_t size):
   bytes(nullptr),
   size(0U)
 {

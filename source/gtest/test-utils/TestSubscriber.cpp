@@ -11,7 +11,7 @@ TestSubscriber::~TestSubscriber()
   clear();
 }
 
-const uint8_t TestSubscriber::size() const
+const uint8_t TestSubscriber::numMessages() const
 {
   if (nullptr == messageData) 
   {
@@ -21,7 +21,7 @@ const uint8_t TestSubscriber::size() const
   return 1U;
 }
 
-void TestSubscriber::push(Message& message)
+void TestSubscriber::update(Message& message)
 {
   const uint8_t * fromMessage = message.pack();
   if (nullptr == fromMessage)
@@ -43,7 +43,7 @@ void TestSubscriber::push(Message& message)
   }
 }
 
-void TestSubscriber::pop(Message& message)
+void TestSubscriber::popLatest(Message& message)
 {
   if (nullptr == messageData)
   {

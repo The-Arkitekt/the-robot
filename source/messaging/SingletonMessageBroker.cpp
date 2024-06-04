@@ -2,19 +2,17 @@
 #include <string.h>
 #include <new>
 
-const uint8_t SingletonMessageBroker::MAX_TOPICS          = 255U;
+const uint64_t SingletonMessageBroker::MAX_TOPICS              = 10U;
+const uint64_t SingletonMessageBroker::MAX_OBSERVERS_PER_TOPIC = 10U;
 SingletonMessageBroker * SingletonMessageBroker::instance = nullptr;
 
 SingletonMessageBroker::SingletonMessageBroker():
-  numTopics     (0U),
-  topics        (nullptr)
+  // TODO: topics(TOPICS_CAPACITY)
 {
 }
 
 SingletonMessageBroker::~SingletonMessageBroker()
 {
-  delete[] topics;
-  topics = nullptr;    
 }
    
 void SingletonMessageBroker::getInstance()
@@ -31,7 +29,7 @@ void SingletonMessageBroker::killInstance()
   instance = nullptr;
 }
 
-const uint8_t SingletonMessageBroker::size()
+const uint8_t SingletonMessageBroker::numTopics()
 {
   getInstance();
 
@@ -40,66 +38,25 @@ const uint8_t SingletonMessageBroker::size()
     return 0U;
   }
   
-  return instance->numTopics;
+  // TODO: implement with hashmap
+  // 
+  // return instance->topics.size()
 }
 
-void SingletonMessageBroker::registerSubscriber(char const * const topicName, Subscriber& subscriber)
+void SingletonMessageBroker::registerObserver(char const * const topicName, Observer& observer)
 {
   getInstance();
 
-  if (nullptr == instance)
+  // Cant register for these reasons
+  if ((nullptr == instance) || (// TODO: capacity == topics->size()))
   {
     return;
   }
+  
+  // TODO: implement with hash map
+  //
+  // topics[topicName][topics.size()] = &observer
 
-  if (MAX_TOPICS == instance->numTopics)
-  {
-    return;
-  }
-
-  // Search for topic in topics list
-  for (uint8_t i = 0U; i < instance->numTopics; ++i)
-  {
-    if (0 == strcmp(instance->topics[i]->name(), topicName))
-    {
-       instance->topics[i]->addSubscriber(subscriber);
-       return;
-    }
-  }
-
-  // If this point is reached a new topic needs to be created
-  // Create the newew Topic first to make sure it is successfully allocated
-  Topic * newTopic = new (std::nothrow) Topic(topicName);
-  if (nullptr == newTopic)
-  {
-    return;
-  }
-
-  newTopic->addSubscriber(subscriber);
-
-  Topic ** newTopics = new (std::nothrow) Topic *[instance->numTopics + 1U];
-  if (nullptr == newTopics)
-  {
-    delete newTopic;
-    return;
-  }
-
-  // Copy over topics
-  for (uint8_t i = 0U; i < instance->numTopics; ++i)
-  {
-    newTopics[i] = instance->topics[i];
-  }
-
-  // Set new topic at end of array
-  newTopics[instance->numTopics++] = newTopic;
-
-  // Replace topics array
-  if (nullptr != instance->topics)
-  {
-    delete[] instance->topics;
-  }
-
-  instance->topics = newTopics;
 }
 
 void SingletonMessageBroker::updateTopic(char const * const topicName, Message& message)
@@ -111,14 +68,7 @@ void SingletonMessageBroker::updateTopic(char const * const topicName, Message& 
     return;
   }
 
-  // Search for topic in topics list
-  for (uint8_t i = 0U; i < instance->numTopics; ++i)
-  {
-    if (0 == strcmp(instance->topics[i]->name(), topicName))
-    {
-      instance->topics[i]->update(message);
-    }
-  }
+  // TODO: Get topic array list from hashmap
 }
 
 

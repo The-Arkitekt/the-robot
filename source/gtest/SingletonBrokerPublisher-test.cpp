@@ -40,7 +40,7 @@ TEST_F(SingletonBrokerPublisherTest, Publish)
   publisher.publish(message);
 
   TestMessage receivedMessage;
-  subscriber.pop(receivedMessage);
+  subscriber.popLatest(receivedMessage);
 
   EXPECT_EQ(message.value, receivedMessage.value);
 }

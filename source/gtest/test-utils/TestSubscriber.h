@@ -10,9 +10,9 @@ public:
   TestSubscriber();
   ~TestSubscriber();
 
-  const uint8_t size() const;
-  void          push(Message& message);
-  void          pop(Message& message);
+  const uint8_t numMessages() const;
+  void          update(Message& message);
+  void          popLatest(Message& message);
   void          clear();
 
   uint8_t * messageData;

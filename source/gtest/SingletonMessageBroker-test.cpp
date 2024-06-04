@@ -31,11 +31,11 @@ TEST_F(SingletonMessageBrokerTest, RegisterSubscriber)
 
   SingletonMessageBroker::registerSubscriber("TestTopic", subscriber);
 
-  EXPECT_EQ(1U, SingletonMessageBroker::size());
+  EXPECT_EQ(1U, SingletonMessageBroker::numTopics());
 
   SingletonMessageBroker::registerSubscriber("NextTestTopic", subscriber);
 
-  EXPECT_EQ(2U, SingletonMessageBroker::size());
+  EXPECT_EQ(2U, SingletonMessageBroker::numTopics());
 }
 
 TEST_F(SingletonMessageBrokerTest, UpdateTopic)
@@ -43,7 +43,7 @@ TEST_F(SingletonMessageBrokerTest, UpdateTopic)
   TestSubscriber subscriber;
 
   SingletonMessageBroker::registerSubscriber("TestTopic", subscriber);
-  ASSERT_EQ(1U, SingletonMessageBroker::size());
+  ASSERT_EQ(1U, SingletonMessageBroker::numTopics());
 
   TestMessage message;
   message.value = 69U; // Nice!
@@ -51,7 +51,7 @@ TEST_F(SingletonMessageBrokerTest, UpdateTopic)
   SingletonMessageBroker::updateTopic("TestTopic", message);
 
   TestMessage receivedMessage;
-  subscriber.pop(receivedMessage);
+  subscriber.popLatest(receivedMessage);
 
   EXPECT_EQ(69U, receivedMessage.value);
 }

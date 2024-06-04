@@ -1,8 +1,29 @@
+set(UTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../utils/)
+
+add_subdirectory(${UTILS_DIR} utils_bld)
+
+list(APPEND LINK_LIBRARIES
+  Utils
+)
+
+list(APPEND INCLUDE_DIRS
+  ${UTILS_DIR}
+)
+
 list(APPEND SOURCES 
   DriveStateCommand.cpp
-  Topic.cpp
   SingletonMessageBroker.cpp
-  SingletonBrokerPublisher.cpp
+  Observer.cpp
 )
 
 add_library(Messaging ${SOURCES})
+
+target_include_directories(
+  Messaging PUBLIC
+  ${INCLUDE_DIRS}
+)
+
+target_link_libraries(
+  Messaging PUBLIC
+  ${LINK_LIBRARIES}
+)

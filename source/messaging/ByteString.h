@@ -1,6 +1,8 @@
 #ifndef BYTE_STRING_H
 #define BYTE_STRING_H
 
+#include <cstdint>
+
 class ByteString
 {
 public:
@@ -11,9 +13,9 @@ public:
   ByteString(uint8_t const * const bytes, const uint8_t size);
   ~ByteString();
 
-  uint8_t const * const bytes;
-  uint8_t               size;
+  uint8_t * bytes;
+  uint8_t   size;
 
-}
+};
 
 #endif // BYTE_STRING_H

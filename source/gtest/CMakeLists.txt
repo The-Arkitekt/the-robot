@@ -23,8 +23,8 @@ enable_testing()
 #########################################
 # Setup files and directories
 #
-set(MESSAGING_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/../messaging/")
-set(TEST_UTILS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/test-utils/")
+set(MESSAGING_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/../messaging/)
+set(TEST_UTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test-utils/)
 
 add_subdirectory(${MESSAGING_DIR}  messaging_bld)
 add_subdirectory(${TEST_UTILS_DIR} testutils_bld)
@@ -40,9 +40,9 @@ list(APPEND INCLUDE_DIRS
 )
 
 list(APPEND SOURCES
-  "DriveStateCommand-test.cpp"
-  "SingletonMessageBroker-test.cpp"
-  "SingletonBrokerPublisher-test.cpp"
+  DriveStateCommand-test.cpp
+  SingletonMessageBroker-test.cpp
+  Observer-test.cpp
 )
 
 ########################################

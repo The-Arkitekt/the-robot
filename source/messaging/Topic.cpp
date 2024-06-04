@@ -62,6 +62,6 @@ void Topic::update(Message& message) const
 {
   for (uint8_t i = 0U; i < numSubscribers; ++i)
   {
-    subscribers[i]->push(message);
+    subscribers[i]->update(message);
   }
 }

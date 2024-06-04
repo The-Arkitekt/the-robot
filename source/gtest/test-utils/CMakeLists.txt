@@ -1,6 +1,5 @@
 list(APPEND SOURCES
   TestMessage.cpp
-  TestSubscriber.cpp
 )
 
 list(APPEND INCLUDE_DIRS

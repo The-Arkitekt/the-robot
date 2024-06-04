@@ -2,26 +2,24 @@
 #define SINGLETON_BROKER_SUBSCRIBER_H
 
 #include "Subscriber.h"
-#include "ByteString.h"
+#include "Queue.h"
 
 class SingletonBrokerSubscriber : public Subscriber
 {
 public:
 
-  static const uint8_t MAX_MESSAGES_PER_SUBSCRIBER;
-
-  SingletonBrokerSubscriber(char const * const topicName);
+  SingletonBrokerSubscriber(char const * const topicName, const uint8_t capacity);
   ~SingletonBrokerSubscriber();
 
-  const uint8_t size() const;
-  void          push(Message& message);
-  void          pop(Message& message);
+  const uint8_t numMessages() const;
+  void          update(Message& message);
+  void          popLatest(Message& message);
   void          clear();
 
 private:
 
-  uint8_t       numMessages;
-  ByteString ** messagesData;
-}
+  const uint8_t capacity;
+  Queue         byteStrings;
+};
 
 #endif // SINGLETON_BROKER_SUBSCRIBER_H
