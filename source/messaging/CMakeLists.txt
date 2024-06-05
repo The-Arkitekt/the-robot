@@ -13,7 +13,6 @@ list(APPEND INCLUDE_DIRS
 list(APPEND SOURCES 
   DriveStateCommand.cpp
   SingletonMessageBroker.cpp
-  Observer.cpp
 )
 
 add_library(Messaging ${SOURCES})

@@ -1,19 +1,24 @@
-#ifndef SINGLETON_MESSAGE_BROKER_H
-#define SINGLETON_MESSAGE_BROKER_H
+#ifndef MESSAGING_SINGLETON_MESSAGE_BROKER_H
+#define MESSAGING_SINGLETON_MESSAGE_BROKER_H
 
+#include "Message.h"
 #include "Observer.h"
-#include "Topic.h"
+#include "HashMap.h"
+#include "LinkedList.h"
+
+namespace messaging
+{
 
 class SingletonMessageBroker
 {
 public:
 
-  static const uint64_t MAX_TOPICS;
+  static const uint32_t MAX_TOPICS;
   static const uint64_t MAX_OBSERVERS_PER_TOPIC;
 
   static void          killInstance();
   static const uint8_t numTopics();
-  static void          registerObserver(char const * const topicName, Observer& observer);  
+  static void          registerObserver(char const * const topicName, utils::Observer<Message>& observer);  
   static void          updateTopic(char const * const topicName, Message& message);
 
 private:
@@ -23,10 +28,11 @@ private:
 
   static void getInstance();
 
-  static SingletonMessageBroker * instance;
-  // TODO : implement hash map for topics list
-  // utils::HashMap<char * const *, ArrayList<Observer> *> topics
+  static SingletonMessageBroker *                                    instance;
+  utils::HashMap<char * const *, utils::LinkedList<utils::Observer*> topics
 
 };
 
-#endif // SINGLETON_MESSAGE_BROKER_H
+}
+
+#endif // MESSAGING_SINGLETON_MESSAGE_BROKER_H

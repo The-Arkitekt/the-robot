@@ -54,13 +54,14 @@ void Queue<T>::push(T& object)
 }
 
 template<typename T>
-T Queue<T>::pop()
+const T& Queue<T>::pop()
 {
   //-----------------------------
   // Case 1: Empty queue
   if (0U == numObjects)
   {
-    return T();
+    const T ret;
+    return ret;
   }
 
   //-----------------------------

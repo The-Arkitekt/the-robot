@@ -2,12 +2,12 @@
 #include <string.h>
 #include <new>
 
-const uint64_t SingletonMessageBroker::MAX_TOPICS              = 10U;
+const uint32_t SingletonMessageBroker::MAX_TOPICS              = 10U;
 const uint64_t SingletonMessageBroker::MAX_OBSERVERS_PER_TOPIC = 10U;
-SingletonMessageBroker * SingletonMessageBroker::instance = nullptr;
+SingletonMessageBroker * SingletonMessageBroker::instance      = nullptr;
 
 SingletonMessageBroker::SingletonMessageBroker():
-  // TODO: topics(TOPICS_CAPACITY)
+  topics(static_cast<uint64_t>(2U * MAX_TOPICS))
 {
 }
 
@@ -38,25 +38,20 @@ const uint8_t SingletonMessageBroker::numTopics()
     return 0U;
   }
   
-  // TODO: implement with hashmap
-  // 
-  // return instance->topics.size()
+  return instance->topics.size()
 }
 
-void SingletonMessageBroker::registerObserver(char const * const topicName, Observer& observer)
+void SingletonMessageBroker::registerObserver(char const * const topicName, utils::Observer<Message>& observer)
 {
   getInstance();
 
   // Cant register for these reasons
-  if ((nullptr == instance) || (// TODO: capacity == topics->size()))
+  if ((nullptr == instance) || (MAX_TOPICS == topics->size()))
   {
     return;
   }
-  
-  // TODO: implement with hash map
-  //
-  // topics[topicName][topics.size()] = &observer
 
+  topics[topicName].push(&observer);
 }
 
 void SingletonMessageBroker::updateTopic(char const * const topicName, Message& message)
@@ -68,9 +63,11 @@ void SingletonMessageBroker::updateTopic(char const * const topicName, Message& 
     return;
   }
 
-  // TODO: Get topic array list from hashmap
+  Node<utils::Observer*> const * currentTopicNode = topics[topicName];
+
+  while((nullptr != currentTopicNode) && (nullptr != currentTopicNode->object))
+  {
+    currentTopicNode->object->update(message);
+    currentTopicNode = currentTopicNode->child;
+  }
 }
-
-
-
-

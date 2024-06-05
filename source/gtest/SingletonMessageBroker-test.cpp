@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "SingletonMessageBroker.h"
 #include "TestMessage.h"
-#include "TestSubscriber.h"
+#include "TestMessageObserver.h"
 
 class SingletonMessageBrokerTest : public testing::Test
 {

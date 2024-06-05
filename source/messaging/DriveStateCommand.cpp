@@ -40,12 +40,12 @@ void DriveStateCommand::init()
   }
 }
 
-const uint8_t DriveStateCommand::identifier() const
+uint8_t DriveStateCommand::identifier() const
 {
   return IDENTIFIER;
 }
 
-const uint32_t DriveStateCommand::size() const
+uint32_t DriveStateCommand::size() const
 {
   return SIZE;
 }

@@ -3,7 +3,7 @@
 namespace utils
 {
 
-template <typename T>
+template<typename T>
 ArrayList<T>::ArrayList(const uint64_t startingSize):
   numObjects(0U),
   arr       (nullptr)
@@ -16,39 +16,39 @@ ArrayList<T>::ArrayList(const uint64_t startingSize):
   }
 }
 
-template <typename T>
+template<typename T>
 ArrayList<T>::~ArrayList()
 {
   delete[] arr;
 }
 
-template <typename T>
+template<typename T>
 T& ArrayList<T>::operator [](const uint64_t index)
 {
   // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
     T ret;
-    return &ret;
+    return ret;
   }
 
-  return &arr[index];
+  return arr[index];
 }
 
-template <typename T>
+template<typename T>
 const T& ArrayList<T>::operator [](const uint64_t index) const
 {
   // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
     const T ret;
-    return &ret;
+    return ret;
   }
 
-  return &arr[index];
+  return arr[index];
 }
 
-template <typename T>
+template<typename T>
 void ArrayList<T>::resize(const uint64_t newSize)
 {
   T * newArr = (std::nothrow) new T[newSize];

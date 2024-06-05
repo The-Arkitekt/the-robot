@@ -1,8 +1,15 @@
 #include "TestMessage.h"
 #include <new>
 
+namespace gtest
+{
+
+const uint32_t TestMessage::TEST_MESSAGE_SIZE = 1U;
+const uint8_t  TestMessage::TEST_MESSAGE_ID   = 0U;
+
 TestMessage::TestMessage():
-  value(0U)
+  packedBytes(TEST_MESSAGE_SIZE),
+  value      (0U)
 {
 }
 
@@ -15,24 +22,37 @@ void TestMessage::init()
   value = 0U;
 }
 
-const uint32_t TestMessage::size() const
+uint8_t TestMessage::identifier()
 {
-  return 1U;
+  return TEST_MESSAGE_ID;
 }
 
-uint8_t const * const TestMessage::pack()
+uint32_t TestMessage::size() const
 {
-  return &value;
+  return TEST_MESSAGE_SIZE;
 }
 
-void TestMessage::unpack(uint8_t const * const data, const uint32_t size)
+const ArrayList<uint8_t>& TestMessage::pack()
 {
-  if ((nullptr == data) || (1U != size))
+  for (uint32_t i = 0U; i < TEST_MESSAGE_SIZE; ++i)
+  {
+    packedBytes[i] = value;
+  }
+
+  return packedBytes;
+}
+
+void TestMessage::unpack(const ArrayList<uint8_t>& data)
+{
+  if (TEST_MESSAGE_SIZE != data.size())
   {
     return;
   }
 
-  value = *data;
+  for (uint32_t i = 0U; i < TEST_MESSAGE_SIZE; ++i)
+  {
+    packedBytes[i] = data[i];
+  }
 }
 
-
+}

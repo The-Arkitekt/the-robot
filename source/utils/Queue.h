@@ -15,10 +15,10 @@ public:
   Queue(const uint64_t capacity);
   ~Queue();
 
-  const uint64_t size() const;
-  void           push(const T& object);
-  T              pop();
-  void           clear();
+  uint64_t size() const;
+  void     push(const T& object);
+  const T& pop();
+  void     clear();
 
 private:
 

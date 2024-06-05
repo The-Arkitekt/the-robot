@@ -1,5 +1,5 @@
-#ifndef DRIVE_STATE_COMMAND_H
-#define DRIVE_STATE_COMMAND_H
+#ifndef MESSAGING_DRIVE_STATE_COMMAND_H
+#define MESSAGING_DRIVE_STATE_COMMAND_H
 
 #include "Message.h"
 
@@ -17,8 +17,8 @@ public:
   ~DriveStateCommand();
 
   void                      init();
-  const uint8_t             identifier() const;
-  const uint32_t            size() const;
+  uint8_t                   identifier() const;
+  uint32_t                  size() const;
   const ArrayList<uint8_t>& pack();
   void                      unpack(const ArrayList<uint8_t>& data);
 
@@ -38,4 +38,4 @@ private:
 
 }
 
-#endif // DRIVE_STATE_COMMAND_H
+#endif // MESSAGING_DRIVE_STATE_COMMAND_H

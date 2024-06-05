@@ -6,7 +6,7 @@
 namespace utils
 {
 
-template <typename T>
+template<typename T>
 class ArrayList
 {
 public:
