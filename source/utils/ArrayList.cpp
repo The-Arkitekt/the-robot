@@ -25,17 +25,11 @@ ArrayList<T>::~ArrayList()
 template <typename T>
 T& ArrayList<T>::operator [](const uint64_t index)
 {
-  // Resize array if index is greater than current size
+  // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
-    resize(index + 1U);
-  
-    if (numObjects <= index)
-    {
-      // We have failed miserably
-      T ret;
-      return &ret;
-    }
+    T ret;
+    return &ret;
   }
 
   return &arr[index];
@@ -44,10 +38,10 @@ T& ArrayList<T>::operator [](const uint64_t index)
 template <typename T>
 const T& ArrayList<T>::operator [](const uint64_t index) const
 {
-  // No resize should be done
+  // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
-    T ret;
+    const T ret;
     return &ret;
   }
 

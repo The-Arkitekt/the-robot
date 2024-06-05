@@ -16,7 +16,7 @@ public:
   ~Queue();
 
   const uint64_t size() const;
-  void           push(T& object);
+  void           push(const T& object);
   T              pop();
   void           clear();
 

@@ -29,14 +29,6 @@ template<typename T>
 void Queue<T>::push(T& object)
 {
   //--------------------------------
-  // Sanity Check: ArrayList not 
-  //               initialized
-  if (capacity != arrayList.size())
-  {
-    return;
-  }
-
-  //--------------------------------
   // Case 1: Queue is empty
   if (0U == numObjects)
   {

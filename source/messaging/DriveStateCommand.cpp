@@ -1,11 +1,14 @@
 #include "DriveStateCommand.h"
 #include <new>
 
+namespace messaging
+{
+
 DriveStateCommand::DriveStateCommand():
   xDirection (0),
   yDirection (0),
   zDirection (0),
-  packedBytes(nullptr)
+  packedBytes()
 {
 }
 
@@ -15,7 +18,7 @@ DriveStateCommand::DriveStateCommand(const int8_t xDirection,
   xDirection (xDirection),
   yDirection (yDirection),
   zDirection (zDirection),
-  packedBytes(nullptr)
+  packedBytes()
 {
 }
 
@@ -29,45 +32,48 @@ void DriveStateCommand::init()
   xDirection = 0;
   yDirection = 0;
   zDirection = 0;
-  
-  delete[] packedBytes;
-  packedBytes = nullptr;
+
+  const uint64_t arrayListSize = packedBytes.size();
+  for (uint64_t i = 0U; i < arrayListSize; ++i)
+  {
+    packedBytes[i] = 0U;
+  }
+}
+
+const uint8_t DriveStateCommand::identifier() const
+{
+  return IDENTIFIER;
 }
 
 const uint32_t DriveStateCommand::size() const
 {
-  return DriveStateCommand::SIZE;
+  return SIZE;
 }
 
-uint8_t const * const DriveStateCommand::pack()
+const ArrayList<uint8_t>& DriveStateCommand::pack()
 {
-  if (nullptr == packedBytes)
+  if (0U == packedBytes.size())
   {
-    packedBytes = new (std::nothrow) uint8_t[DriveStateCommand::SIZE];
+    packedBytes.resize(SIZE);
   }
-  
-  if (nullptr != packedBytes)
-  {
-    packedBytes[0U] = static_cast<uint8_t>(xDirection);
-    packedBytes[1U] = static_cast<uint8_t>(yDirection);
-    packedBytes[2U] = static_cast<uint8_t>(zDirection);
-  }
+    
+  packedBytes[0U] = static_cast<uint8_t>(xDirection);
+  packedBytes[1U] = static_cast<uint8_t>(yDirection);
+  packedBytes[2U] = static_cast<uint8_t>(zDirection);
 
   return packedBytes;
 }
 
-void DriveStateCommand::unpack(uint8_t const * const data, const uint32_t size)
+void DriveStateCommand::unpack(const ArrayList<uint_t>& data)
 {
-  if ((nullptr == data) || (DriveStateCommand::SIZE != size))
+  if ((SIZE != data.size()) || (IDENTIFIER != data[0U]))
   {
     return;
   }
 
-  xDirection = static_cast<int8_t>(data[0U]);
-  yDirection = static_cast<int8_t>(data[1U]);
-  zDirection = static_cast<int8_t>(data[2U]);
+  xDirection = static_cast<int8_t>(data[1U]);
+  yDirection = static_cast<int8_t>(data[2U]);
+  zDirection = static_cast<int8_t>(data[3U]);
 }
 
-
-
-  
+}
