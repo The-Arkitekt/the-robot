@@ -5,11 +5,12 @@ namespace utils
 
 template<typename T>
 Queue<T>::Queue(const uint64_t capacity):
-  capacity  (capacity),
-  numObjects(0U),
-  headIndex (0U),
-  tailIndex (0U),
-  arrayList (capacity)
+  defaultObject(),
+  capacity     (capacity),
+  numObjects   (0U),
+  headIndex    (0U),
+  tailIndex    (0U),
+  arrayList    (capacity)
 {
 }
 
@@ -60,8 +61,7 @@ const T& Queue<T>::pop()
   // Case 1: Empty queue
   if (0U == numObjects)
   {
-    const T ret;
-    return ret;
+    defaultObject;
   }
 
   //-----------------------------

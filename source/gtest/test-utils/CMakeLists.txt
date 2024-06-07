@@ -1,9 +1,13 @@
+set(UTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../utils/)
+set(MESSAGING_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../messaging/)
+
 list(APPEND SOURCES
   TestMessage.cpp
 )
 
 list(APPEND INCLUDE_DIRS
-  "${CMAKE_CURRENT_SOURCE_DIR}/../../messaging/"
+  ${UTILS_DIR}
+  ${MESSAGING_DIR}
 )
 
 add_library(TestUtils ${SOURCES})

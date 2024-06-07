@@ -1,6 +1,7 @@
 #ifndef MESSAGING_SINGLETON_MESSAGE_BROKER_H
 #define MESSAGING_SINGLETON_MESSAGE_BROKER_H
 
+#include "Topics.h"
 #include "Message.h"
 #include "Observer.h"
 #include "HashMap.h"
@@ -18,8 +19,8 @@ public:
 
   static void          killInstance();
   static const uint8_t numTopics();
-  static void          registerObserver(char const * const topicName, utils::Observer<Message>& observer);  
-  static void          updateTopic(char const * const topicName, Message& message);
+  static void          registerObserver(const Topic& topic, utils::Observer<Message>& observer);  
+  static void          updateTopic(const Topic& topic, Message& message);
 
 private:
 
@@ -28,8 +29,8 @@ private:
 
   static void getInstance();
 
-  static SingletonMessageBroker *                                    instance;
-  utils::HashMap<char * const *, utils::LinkedList<utils::Observer*> topics
+  static SingletonMessageBroker *                                                  instance;
+  utils::HashMap<Topic, utils::LinkedList<utils::Observer<Message>*>> topics;
 
 };
 

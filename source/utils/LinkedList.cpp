@@ -1,5 +1,3 @@
-#include "LinkedList.h"
-
 namespace utils
 {
 
@@ -8,6 +6,7 @@ const uint64_t LinkedList<T>::MAX_LINKED_LIST_SIZE = 25U;
 
 template<typename T>
 LinkedList<T>::LinkedList():
+  defaultNode(),
   numNodes   (0U),
   headPointer(nullptr)
 {
@@ -35,7 +34,7 @@ void LinkedList<T>::push(const T& object)
     return;
   }
 
-  Node<T> * node = new (std:nothrow) Node<T>(object);
+  Node<T> * node = new(std::nothrow) Node<T>(object);
   if (nullptr == node)
   {
     return;
@@ -55,7 +54,7 @@ void LinkedList<T>::push(const T& object)
   // Case 3: Subsequent Links
   else
   {
-    if ((nullptr == tailPointer)
+    if (nullptr == tailPointer)
     {
       delete node;
       return;
@@ -67,15 +66,36 @@ void LinkedList<T>::push(const T& object)
 }
 
 template<typename T>
+Node<T>& LinkedList<T>::head()
+{
+  if (nullptr == headPointer)
+  {
+    return defaultNode;
+  }
+
+  return * headPointer;
+}
+
+template<typename T>
 const Node<T>& LinkedList<T>::head() const
 {
   if (nullptr == headPointer)
   {
-    Node<T> node;
-    return node;
+    return defaultNode;
   }
 
   return * headPointer;
+}
+
+template<typename T>
+Node<T>& LinkedList<T>::tail()
+{
+  if (nullptr == tailPointer)
+  {
+    return defaultNode;
+  }
+
+  return * tailPointer;
 }
 
 template<typename T>
@@ -83,8 +103,7 @@ const Node<T>& LinkedList<T>::tail() const
 {
   if (nullptr == tailPointer)
   {
-    Node<T> node;
-    return node;
+    return defaultNode;
   }
 
   return * tailPointer;

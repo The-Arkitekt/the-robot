@@ -22,6 +22,7 @@ public:
 
 private:
 
+  T              defaultObject;
   const uint64_t capacity;
   uint64_t       numObjects;
   uint64_t       headIndex;
@@ -29,8 +30,8 @@ private:
   ArrayList<T>   arrayList;
 };
 
-#include "Queue.cpp"
-
 }
+
+#include "Queue.cpp"
 
 #endif // QUEUE_H

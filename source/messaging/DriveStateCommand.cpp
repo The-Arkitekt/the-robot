@@ -50,7 +50,7 @@ uint32_t DriveStateCommand::size() const
   return SIZE;
 }
 
-const ArrayList<uint8_t>& DriveStateCommand::pack()
+const utils::ArrayList<uint8_t>& DriveStateCommand::pack()
 {
   if (0U == packedBytes.size())
   {
@@ -64,7 +64,7 @@ const ArrayList<uint8_t>& DriveStateCommand::pack()
   return packedBytes;
 }
 
-void DriveStateCommand::unpack(const ArrayList<uint_t>& data)
+void DriveStateCommand::unpack(const utils::ArrayList<uint8_t>& data)
 {
   if ((SIZE != data.size()) || (IDENTIFIER != data[0U]))
   {

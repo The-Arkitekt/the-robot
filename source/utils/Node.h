@@ -18,8 +18,8 @@ public:
 
 };
 
-#include "Node.cpp"
-
 }
+
+#include "Node.cpp"
 
 #endif // UTILS_NODE_H

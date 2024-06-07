@@ -4,15 +4,24 @@ namespace utils
 {
 
 template<typename T>
-ArrayList<T>::ArrayList(const uint64_t startingSize):
-  numObjects(0U),
-  arr       (nullptr)
+ArrayList<T>::ArrayList():
+  defaultObject(),
+  numObjects   (0U),
+  arr          (nullptr)
 {
-  arr = (std::nothrow) new T[startingSize];
+}
+
+template<typename T>
+ArrayList<T>::ArrayList(const uint64_t startingSize):
+  defaultObject(),
+  numObjects   (0U),
+  arr          (nullptr)
+{
+  arr = new(std::nothrow) T[startingSize];
 
   if (nullptr != arr)
   {
-    numObjects = startingSize);
+    numObjects = startingSize;
   }
 }
 
@@ -28,8 +37,7 @@ T& ArrayList<T>::operator [](const uint64_t index)
   // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
-    T ret;
-    return ret;
+    return defaultObject;
   }
 
   return arr[index];
@@ -41,8 +49,7 @@ const T& ArrayList<T>::operator [](const uint64_t index) const
   // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
-    const T ret;
-    return ret;
+    return defaultObject;
   }
 
   return arr[index];
@@ -51,7 +58,7 @@ const T& ArrayList<T>::operator [](const uint64_t index) const
 template<typename T>
 void ArrayList<T>::resize(const uint64_t newSize)
 {
-  T * newArr = (std::nothrow) new T[newSize];
+  T * newArr = new(std::nothrow) T[newSize];
 
   if (nullptr == newArr)
   {
@@ -67,5 +74,7 @@ void ArrayList<T>::resize(const uint64_t newSize)
 
   numObjects = newSize;
   arr        = newArr;
+}
+
 }
 

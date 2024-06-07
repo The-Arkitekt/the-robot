@@ -16,11 +16,11 @@ public:
                     const int8_t zDirection);
   ~DriveStateCommand();
 
-  void                      init();
-  uint8_t                   identifier() const;
-  uint32_t                  size() const;
-  const ArrayList<uint8_t>& pack();
-  void                      unpack(const ArrayList<uint8_t>& data);
+  void                             init();
+  uint8_t                          identifier() const;
+  uint32_t                         size() const;
+  const utils::ArrayList<uint8_t>& pack();
+  void                             unpack(const utils::ArrayList<uint8_t>& data);
 
   //------------------------
   // Message fields
@@ -30,9 +30,10 @@ public:
 
 private:
   
-  static const uint8_t  IDENTIFIER = 1U;
-  static const uint32_t SIZE       = 4U;
-  ArrayList<uint8_t>    packedBytes;
+  static const uint8_t      IDENTIFIER = 1U;
+  static const uint32_t     SIZE       = 4U;
+
+  utils::ArrayList<uint8_t> packedBytes;
 
 };
 

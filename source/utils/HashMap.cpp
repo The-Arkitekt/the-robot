@@ -1,10 +1,9 @@
-#include "HashMap.h"
-
 namespace utils
 {
 
 template<typename KEY, typename VALUE>
 HashMap<KEY, VALUE>::HashMap(const uint64_t capacity):
+  defaultValue   (),
   numValues      (0U),
   occupiedIndices(capacity),
   arrayList      (capacity)
@@ -37,19 +36,33 @@ const VALUE& HashMap<KEY, VALUE>::operator [](const KEY& key) const
   }
 
   // Done fucked up
-  VALUE ret;
-  return ret;       
+  return defaultValue;       
 }
 
 template<typename KEY, typename VALUE>
 VALUE& HashMap<KEY, VALUE>::operator [](const KEY& key)
 {
-  const VALUE& ret = this->[key];
-  
-  return ret;
+  uint64_t index = hash(key);
+
+  if (occupiedIndices[index])
+  {
+    // Check for collision 
+    if (key != arrayList[index])
+    {
+      index = resolveCollision(index, key);
+      if ((index < occupiedIndices.size()) &&
+          (true == occupiedIndices[index]))
+      {
+        return arrayList[index];
+      }
+    }
+  }
+
+  // Done fucked up
+  return defaultValue;   
 }
 
-template<typename KEY, Typename VALUE>
+template<typename KEY, typename VALUE>
 void HashMap<KEY, VALUE>::set(const KEY& key, const VALUE& value)
 {
   uint64_t index = hash(key);
@@ -77,7 +90,7 @@ uint64_t HashMap<KEY, VALUE>::size() const
 template<typename KEY, typename VALUE>
 void HashMap<KEY, VALUE>::clear()
 {
-  for (uint_64_t i = 0U; i < occupiedIndices.size(); ++i)
+  for (uint64_t i = 0U; i < occupiedIndices.size(); ++i)
   {
     occupiedIndices[i] = false;
   }
@@ -91,21 +104,22 @@ uint64_t HashMap<KEY, VALUE>::hash(const KEY& key) const
 }
 
 template<typename KEY, typename VALUE>
-uint64_t resolveCollision(const uint64_t index, const KEY& key) const
+uint64_t HashMap<KEY, VALUE>::resolveCollision(const uint64_t index, const KEY& key) const
 {
+  uint64_t currentIndex = index;
   const uint64_t capacity = arrayList.size();
   for (uint64_t i = 0U; i < capacity; ++i)
   {
-    if (!occupiedIndices[index] ||
-        (arrayList[index] == key))
+    if (!occupiedIndices[currentIndex] ||
+        (arrayList[currentIndex] == key))
     {
-      return index;
+      return currentIndex;
     }
 
-    ++index;
-    if(capacity <= index)
+    ++currentIndex;
+    if(capacity <= currentIndex)
     {
-      index = 0U;
+      currentIndex = 0U;
     }
   }
 

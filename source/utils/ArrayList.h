@@ -10,8 +10,9 @@ template<typename T>
 class ArrayList
 {
 public:
-  
-  ArrayList(const uint64_t startingSize = 0U);
+ 
+  ArrayList();
+  ArrayList(const uint64_t startingSize);
   ~ArrayList();
 
   T&       operator [](const uint64_t index);
@@ -22,13 +23,14 @@ public:
 
 private:
 
+  T        defaultObject;
   uint64_t numObjects;
   T *      arr;
 
 };
 
-#include "ArrayList.cpp"
-
 }
+
+#include "ArrayList.cpp"
 
 #endif // UTILS_ARRAY_LIST_H
