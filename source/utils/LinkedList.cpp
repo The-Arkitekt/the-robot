@@ -8,14 +8,61 @@ template<typename T>
 LinkedList<T>::LinkedList():
   defaultNode(),
   numNodes   (0U),
-  headPointer(nullptr)
+  headPointer(nullptr),
+  tailPointer(nullptr)
 {
+}
+
+template<typename T>
+LinkedList<T>::LinkedList(const LinkedList<T>& other):
+  defaultNode(),
+  numNodes   (other.numNodes),
+  headPointer(nullptr),
+  tailPointer(nullptr)
+{
+  Node<T> * currentNode = other.headPointer;
+
+  for (uint64_t i = 0U; i < other.numNodes; ++i)
+  {
+    if (nullptr == currentNode)
+    {
+      return;
+    }
+    
+    push(currentNode->object);
+    currentNode = currentNode->child;
+  }
 }
 
 template<typename T>
 LinkedList<T>::~LinkedList()
 {
   clear();
+}
+
+template<typename T>
+LinkedList<T>& LinkedList<T>::operator =(const LinkedList<T>& rhs)
+{
+  if (this != &rhs)
+  {
+    clear();
+
+    Node<T> * currentNode = rhs.headPointer;
+
+    for (uint64_t i = 0U; i < rhs.numNodes; ++i)
+    {
+      if (nullptr == currentNode)
+      {
+        clear();
+        return *this;
+      }
+
+      push(currentNode->object);
+      currentNode = currentNode->child;
+    }
+  }
+
+  return *this;
 }
 
 template<typename T>
@@ -54,15 +101,11 @@ void LinkedList<T>::push(const T& object)
   // Case 3: Subsequent Links
   else
   {
-    if (nullptr == tailPointer)
-    {
-      delete node;
-      return;
-    }
-    
-    tailPointer->child = node;
-    tailPointer        = node;
+    tailPointer->child = node;   
+    tailPointer        = tailPointer->child;
   }
+
+  ++numNodes;
 }
 
 template<typename T>
@@ -112,23 +155,39 @@ const Node<T>& LinkedList<T>::tail() const
 template<typename T>
 void LinkedList<T>::clear()
 {
-  Node<T> * currentNode = headPointer;
+  numNodes = 0U;
 
-  if (nullptr == currentNode)
+  //--------------------------
+  // Case 1: Empty list
+  if (nullptr == headPointer)
   {
     return;
   }
 
-  Node<T> * nextNode = headPointer->child;
-
-  while (nullptr != nextNode)
+  //--------------------------
+  // Case 2: Single Node
+  if (headPointer == tailPointer)
   {
-    delete currentNode;
-    currentNode = nextNode;
-    nextNode = currentNode->child;
+    delete headPointer;
+    headPointer = nullptr;
+    tailPointer = nullptr;
+    return;
   }
 
-  delete currentNode;
+  //---------------------------
+  // Case 3: Multiple Nodes
+  Node<T> * currentNode = headPointer;
+  Node<T> * nextNode    = nullptr;
+
+  while (nullptr != currentNode)
+  {
+    nextNode = currentNode->child;
+    delete currentNode;
+    currentNode = nextNode;
+  }
+
+  headPointer = nullptr;
+  tailPointer = nullptr;
 }
 
 }

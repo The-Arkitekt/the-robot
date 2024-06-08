@@ -1,19 +1,24 @@
 #include <gtest/gtest.h>
 #include "SingletonMessageBroker.h"
 #include "TestMessage.h"
-#include "TestMessageObserver.h"
+#include "TestObserverMessage.h"
+#include "Topics.h"
+
+namespace gtest
+{
 
 class SingletonMessageBrokerTest : public testing::Test
 {
 protected:
 
-  SingletonMessageBrokerTest() 
+  SingletonMessageBrokerTest():
+    observer()
   {
   }
 
   ~SingletonMessageBrokerTest() override 
   {
-    SingletonMessageBroker::killInstance();
+    messaging::SingletonMessageBroker::killInstance();
   }
 
   void SetUp() override 
@@ -23,36 +28,30 @@ protected:
   void TearDown() override 
   {
   }
+
+  TestObserverMessage observer;
 };
 
-TEST_F(SingletonMessageBrokerTest, RegisterSubscriber)
+TEST_F(SingletonMessageBrokerTest, RegisterObserver)
 {
-  TestSubscriber subscriber;
+  messaging::SingletonMessageBroker::registerObserver(messaging::DRIVE_STATE_COMMAND_TOPIC, observer);
 
-  SingletonMessageBroker::registerSubscriber("TestTopic", subscriber);
-
-  EXPECT_EQ(1U, SingletonMessageBroker::numTopics());
-
-  SingletonMessageBroker::registerSubscriber("NextTestTopic", subscriber);
-
-  EXPECT_EQ(2U, SingletonMessageBroker::numTopics());
+  EXPECT_EQ(1U, messaging::SingletonMessageBroker::numTopics());
 }
 
 TEST_F(SingletonMessageBrokerTest, UpdateTopic)
 {
-  TestSubscriber subscriber;
-
-  SingletonMessageBroker::registerSubscriber("TestTopic", subscriber);
-  ASSERT_EQ(1U, SingletonMessageBroker::numTopics());
+  messaging::SingletonMessageBroker::registerObserver(messaging::DRIVE_STATE_COMMAND_TOPIC, observer);
+  ASSERT_EQ(1U, messaging::SingletonMessageBroker::numTopics());
 
   TestMessage message;
   message.value = 69U; // Nice!
 
-  SingletonMessageBroker::updateTopic("TestTopic", message);
+  messaging::SingletonMessageBroker::updateTopic(messaging::DRIVE_STATE_COMMAND_TOPIC, message);
 
-  TestMessage receivedMessage;
-  subscriber.popLatest(receivedMessage);
+  ASSERT_TRUE(nullptr != observer.message);
+  EXPECT_EQ(69U, static_cast<TestMessage const *>(observer.message)->value);
+}
 
-  EXPECT_EQ(69U, receivedMessage.value);
 }
 

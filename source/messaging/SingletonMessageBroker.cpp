@@ -55,6 +55,7 @@ void SingletonMessageBroker::registerObserver(const Topic& topic, utils::Observe
   }
 
   instance->topics[static_cast<uint8_t>(topic)].push(&observer);
+  ++(instance->topicCounter);
 }
 
 void SingletonMessageBroker::updateTopic(const Topic& topic, Message& message)
@@ -66,9 +67,10 @@ void SingletonMessageBroker::updateTopic(const Topic& topic, Message& message)
     return;
   }
 
-  utils::Node<utils::Observer<Message>*> * currentNode = &(instance->topics[static_cast<uint8_t>(topic)].head());
+  utils::LinkedList<utils::Observer<Message>*>* topicList = &(instance->topics[static_cast<uint8_t>(topic)]);
+  utils::Node<utils::Observer<Message>*>* currentNode     = &(topicList->head());
 
-  while((nullptr != currentNode) && (nullptr != currentNode->object))
+  for (uint64_t i = 0U; i < topicList->size(); ++i)
   {
     currentNode->object->update(message);
     currentNode = currentNode->child;

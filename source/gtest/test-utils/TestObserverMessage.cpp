@@ -12,14 +12,9 @@ TestObserverMessage::~TestObserverMessage()
 {
 }
 
-void TestObserverMessage::update(const Message& object)
+void TestObserverMessage::update(const messaging::Message& object)
 {
   message = &object;
-}
-
-Message * const TestObserverMessage::getMessage()
-{
-  return message;
 }
 
 }

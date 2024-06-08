@@ -3,6 +3,7 @@ set(MESSAGING_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../messaging/)
 
 list(APPEND SOURCES
   TestMessage.cpp
+  TestObserverMessage.cpp
 )
 
 list(APPEND INCLUDE_DIRS

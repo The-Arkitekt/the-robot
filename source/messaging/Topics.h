@@ -8,7 +8,7 @@ namespace messaging
 
 enum Topic
 {
-  DRIVE_STATE_COMMAND
+  DRIVE_STATE_COMMAND_TOPIC
 };
 
 static const uint8_t NUM_TOPIC_VALUES = 1U;

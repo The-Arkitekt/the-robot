@@ -22,12 +22,12 @@ void TestMessage::init()
   value = 0U;
 }
 
-uint8_t TestMessage::identifier()
+uint8_t TestMessage::identifier() const
 {
   return TEST_MESSAGE_ID;
 }
 
-const ArrayList<uint8_t>& TestMessage::pack()
+utils::ArrayList<uint8_t> TestMessage::pack()
 {
   for (uint32_t i = 0U; i < TEST_MESSAGE_SIZE; ++i)
   {
@@ -37,7 +37,7 @@ const ArrayList<uint8_t>& TestMessage::pack()
   return packedBytes;
 }
 
-void TestMessage::unpack(const ArrayList<uint8_t>& data)
+void TestMessage::unpack(const utils::ArrayList<uint8_t>& data)
 {
   if (TEST_MESSAGE_SIZE != data.size())
   {

@@ -13,7 +13,10 @@ class LinkedList
 public:
 
   LinkedList();
+  LinkedList(const LinkedList<T>& other);
   ~LinkedList();
+
+  LinkedList<T>& operator =(const LinkedList<T>& rhs);  
 
   uint64_t       size() const;
   void           push(const T& object);

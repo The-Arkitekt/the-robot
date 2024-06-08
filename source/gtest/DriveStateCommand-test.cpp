@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 #include "DriveStateCommand.h"
 
+namespace gtest
+{
+
 class DriveStateCommandTest : public testing::Test
 {
 protected:
@@ -112,6 +115,8 @@ TEST_F(DriveStateCommandTest, unpack)
   EXPECT_EQ(-1,   driveStateCommand->xDirection);
   EXPECT_EQ(-128, driveStateCommand->yDirection);
   EXPECT_EQ(127,  driveStateCommand->zDirection);
+
+}
 
 }
 

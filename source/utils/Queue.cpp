@@ -17,7 +17,6 @@ Queue<T>::Queue(const uint64_t capacity):
 template<typename T>
 Queue<T>::~Queue()
 {
-  clear();
 }
 
 template<typename T>
