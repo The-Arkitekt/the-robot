@@ -1,5 +1,4 @@
 #include "SingletonMessageBroker.h"
-#include <string.h>
 #include <new>
 
 namespace messaging

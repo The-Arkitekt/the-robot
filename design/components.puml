@@ -9,11 +9,8 @@ node "Services" {
   [Remote Data Exit]    as RDE
 }
 
-node "MiddleWare" {
-  [Messaging] as MSG
-}
-
 node "Infrastructure" {
+  [Messaging] as MSG
   [Hardware Interface] as HI
 }
 

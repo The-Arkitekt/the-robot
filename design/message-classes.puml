@@ -1,92 +1,13 @@
 @startuml
 
-interface Publisher
+class ByteString
 {
-  + virtual publish(Message& message) : void
-}
-
-interface Subscriber
-{
-  + virtual size() : uint8_t
-  + virtual push(Message& message) : void
-  + virtual pop() : Message&
-  + virtual clear() : void
-}
-
-interface Message
-{
-  + virtual clear() : void
-  + virtual size() : const uint32_t const
-  + virtual pack() : uint8_t const * const
-  + virtual unpack(uint8_t const * const data, const uint32_t size) : void
 }
 
 class DriveStateCommand
 {
-  + xDirection : int8_t
-  + yDirection : int8_t
-  + zDirection : int8_t
 }
 
-class SingletonBrokerPublisher
-{
-}
 
-class SingletonBrokerSubscriber
-{
-  - messagesData : ByteString *
-}
-
-class SingletonMessageBroker
-{
-  + static getInstance() : SingletonMessageBroker* const
-  + static killInstance() : void
-  + numTopics() : uint8_t
-  + register(char const * const topicName, Subscriber& subscriber)
-  + updateTopic(char const * const topicName, Message& message) : void
-
-  - instance : SingletonMessageBroker *
-  - numTopics : uint8_t
-  - topics : Topic *
-}
-
-class Topic
-{
-  + Topic(char const * const name)
-  + addSubscriber(Subscriber& subscriber) : void
-  + update(Message& message) : void
-  + numSubscribers() : const uint8_t
-
-  - numSubscribers : uint8_t
-  - name : char * const *
-  - subscribers : Subscriber **
-}
-
-class ByteString
-{
-  + bytes : uint8_t const * const
-  + size : uint8_t
-}
-
-SingletonBrokerPublisher -|> Publisher
-SingletonBrokerSubscriber -|> Subscriber
-
-Publisher ..> Message
-Subscriber ..> Message
-
-SingletonBrokerSubscriber o--> Message
-
-SingletonBrokerPublisher ..> SingletonMessageBroker
-SingletonBrokerSubscriber ..> SingletonMessageBroker
-SingletonBrokerSubscriber o--> ByteString
-
-SingletonMessageBroker ..> Subscriber
-SingletonMessageBroker ..> Message
-SingletonMessageBroker o--> Topic
-
-Topic o--> Subscriber
-Topic ..> Message
-
-DriveStateCommand -up-|> Message
 
 @enduml
