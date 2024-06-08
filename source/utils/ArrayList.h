@@ -13,13 +13,16 @@ public:
  
   ArrayList();
   ArrayList(const uint64_t startingSize);
+  ArrayList(const ArrayList& other);
   ~ArrayList();
 
-  T&       operator [](const uint64_t index);
-  const T& operator [](const uint64_t index) const;
+  T&            operator [](const uint64_t index);
+  const T&      operator [](const uint64_t index) const;
+  ArrayList<T>& operator =(const ArrayList<T>& rhs);
 
   const uint64_t size() const;
   void           resize(const uint64_t newSize);
+  void           clear();
 
 private:
 

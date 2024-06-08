@@ -24,7 +24,6 @@ DriveStateCommand::DriveStateCommand(const int8_t xDirection,
 
 DriveStateCommand::~DriveStateCommand()
 {
-  init();
 }
 
 void DriveStateCommand::init()
@@ -45,16 +44,11 @@ uint8_t DriveStateCommand::identifier() const
   return IDENTIFIER;
 }
 
-uint32_t DriveStateCommand::size() const
-{
-  return SIZE;
-}
-
-const utils::ArrayList<uint8_t>& DriveStateCommand::pack()
+utils::ArrayList<uint8_t> DriveStateCommand::pack()
 {
   if (0U == packedBytes.size())
   {
-    packedBytes.resize(SIZE);
+    packedBytes.resize(NUM_BYTES);
   }
     
   packedBytes[0U] = static_cast<uint8_t>(xDirection);
@@ -66,7 +60,7 @@ const utils::ArrayList<uint8_t>& DriveStateCommand::pack()
 
 void DriveStateCommand::unpack(const utils::ArrayList<uint8_t>& data)
 {
-  if ((SIZE != data.size()) || (IDENTIFIER != data[0U]))
+  if ((NUM_BYTES != data.size()) || (IDENTIFIER != data[0U]))
   {
     return;
   }

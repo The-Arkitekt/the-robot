@@ -26,9 +26,30 @@ ArrayList<T>::ArrayList(const uint64_t startingSize):
 }
 
 template<typename T>
+ArrayList<T>::ArrayList(const ArrayList<T>& other):
+  defaultObject(),
+  numObjects   (0U),
+  arr          (nullptr)
+{
+  arr = new(std::nothrow) T[other.numObjects];
+
+  if (nullptr == arr)
+  {
+    return;
+  }
+
+  numObjects = other.numObjects;
+
+  for (uint64_t i = 0U; i < numObjects; ++i)
+  {
+    arr[i] = other.arr[i];
+  }
+}  
+
+template<typename T>
 ArrayList<T>::~ArrayList()
 {
-  delete[] arr;
+  clear();
 }
 
 template<typename T>
@@ -56,6 +77,29 @@ const T& ArrayList<T>::operator [](const uint64_t index) const
 }
 
 template<typename T>
+ArrayList<T>& ArrayList<T>::operator =(const ArrayList<T>& rhs)
+{
+  if (this != &rhs)
+  {
+    clear();
+    resize(rhs.numObjects);
+
+    for (uint64_t i = 0U; i < numObjects; ++i)
+    {
+      arr[i] = rhs.arr[i];
+    }
+  }
+
+  return *this;
+}
+
+template<typename T>
+const uint64_t ArrayList<T>::size() const
+{
+  return numObjects;
+}
+
+template<typename T>
 void ArrayList<T>::resize(const uint64_t newSize)
 {
   T * newArr = new(std::nothrow) T[newSize];
@@ -74,6 +118,14 @@ void ArrayList<T>::resize(const uint64_t newSize)
 
   numObjects = newSize;
   arr        = newArr;
+}
+
+template<typename T>
+void ArrayList<T>::clear()
+{
+  delete[] arr;
+  arr        = nullptr;
+  numObjects = 0U;
 }
 
 }

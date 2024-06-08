@@ -11,11 +11,10 @@ class Message
 {
 public:
 
-  virtual void                             init()                                        = 0;
-  virtual uint8_t                          identifier() const                            = 0;
-  virtual uint32_t                         size() const                                  = 0;
-  virtual const utils::ArrayList<uint8_t>& pack()                                        = 0;
-  virtual void                             unpack(const utils::ArrayList<uint8_t>& data) = 0;
+  virtual void                      init()                                        = 0;
+  virtual uint8_t                   identifier() const                            = 0;
+  virtual utils::ArrayList<uint8_t> pack()                                        = 0;
+  virtual void                      unpack(const utils::ArrayList<uint8_t>& data) = 0;
 
 };
 

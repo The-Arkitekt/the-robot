@@ -4,7 +4,6 @@
 #include "Topics.h"
 #include "Message.h"
 #include "Observer.h"
-#include "HashMap.h"
 #include "LinkedList.h"
 
 namespace messaging
@@ -14,7 +13,6 @@ class SingletonMessageBroker
 {
 public:
 
-  static const uint32_t MAX_TOPICS;
   static const uint64_t MAX_OBSERVERS_PER_TOPIC;
 
   static void          killInstance();
@@ -29,8 +27,9 @@ private:
 
   static void getInstance();
 
-  static SingletonMessageBroker *                                                  instance;
-  utils::HashMap<Topic, utils::LinkedList<utils::Observer<Message>*>> topics;
+  static SingletonMessageBroker *              instance;
+  uint8_t                                      topicCounter;
+  utils::LinkedList<utils::Observer<Message>*> topics[NUM_TOPIC_VALUES];
 
 };
 

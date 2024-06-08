@@ -7,7 +7,7 @@ protected:
 
   DriveStateCommandTest() 
   {
-    driveStateCommand = new (std::nothrow) DriveStateCommand();
+    driveStateCommand = new(std::nothrow) messaging::DriveStateCommand();
   }
 
   ~DriveStateCommandTest() override 
@@ -26,7 +26,7 @@ protected:
 
 public:
 
-  DriveStateCommand * driveStateCommand;
+  messaging::DriveStateCommand * driveStateCommand;
 
 };
 
@@ -43,13 +43,13 @@ TEST_F(DriveStateCommandTest, ParameterConstructor)
   int8_t yDirection = -1;
   int8_t zDirection = 3;
 
-  DriveStateCommand * initializedCommand = new (std::nothrow) DriveStateCommand(xDirection,
-                                                                                yDirection,
-                                                                                zDirection);
+  messaging::DriveStateCommand * initializedCommand = new(std::nothrow) messaging::DriveStateCommand(xDirection,
+                                                                                                     yDirection,
+                                                                                                     zDirection);
   ASSERT_NE(nullptr, initializedCommand);
-  EXPECT_EQ(1, initializedCommand->xDirection);
-  EXPECT_EQ(-1, initializedCommand->yDirection);
-  EXPECT_EQ(3, initializedCommand->zDirection);
+  EXPECT_EQ(1,       initializedCommand->xDirection);
+  EXPECT_EQ(-1,      initializedCommand->yDirection);
+  EXPECT_EQ(3,       initializedCommand->zDirection);
 
   delete initializedCommand;
 }
@@ -67,54 +67,51 @@ TEST_F(DriveStateCommandTest, init)
   EXPECT_EQ(0, driveStateCommand->zDirection);
 }
 
-TEST_F(DriveStateCommandTest, size)
-{
-  EXPECT_EQ(3U, driveStateCommand->size());
-}
-
 TEST_F(DriveStateCommandTest, pack)
 {
-  uint8_t const * const initialBytes = driveStateCommand->pack();
+  utils::ArrayList<uint8_t> bytes = driveStateCommand->pack();
 
-  ASSERT_NE(nullptr, initialBytes);
-  EXPECT_EQ(0U, initialBytes[0U]);
-  EXPECT_EQ(0U, initialBytes[1U]);
-  EXPECT_EQ(0U, initialBytes[2U]);
+  ASSERT_EQ(4U, bytes.size());
+  EXPECT_EQ(0U, bytes[0U]);
+  EXPECT_EQ(0U, bytes[1U]);
+  EXPECT_EQ(0U, bytes[2U]);
 
   driveStateCommand->xDirection = -1;
   driveStateCommand->yDirection = -128;
   driveStateCommand->zDirection = 127;
 
-  uint8_t const * const modifiedBytes = driveStateCommand->pack();
+  bytes = driveStateCommand->pack();
 
-  ASSERT_NE(nullptr, initialBytes);
-  EXPECT_EQ(255, modifiedBytes[0U]);
-  EXPECT_EQ(128, modifiedBytes[1U]);
-  EXPECT_EQ(127, modifiedBytes[2U]);
+  ASSERT_EQ(4U,  bytes.size());
+  EXPECT_EQ(255, bytes[0U]);
+  EXPECT_EQ(128, bytes[1U]);
+  EXPECT_EQ(127, bytes[2U]);
 }
 
 TEST_F(DriveStateCommandTest, unpack)
 {
-  uint8_t packedBytes[3U];
-  packedBytes[0U] = 255;
-  packedBytes[1U] = 128;
-  packedBytes[2U] = 127;
+  utils::ArrayList<uint8_t> packedBytes(4U);
+  packedBytes[0U] = driveStateCommand->identifier();
+  packedBytes[1U] = 255;
+  packedBytes[2U] = 128;
+  packedBytes[3U] = 127;
 
-  driveStateCommand->unpack(packedBytes, 3U);
+  driveStateCommand->unpack(packedBytes);
 
-  EXPECT_EQ(-1, driveStateCommand->xDirection);
+  EXPECT_EQ(-1,   driveStateCommand->xDirection);
   EXPECT_EQ(-128, driveStateCommand->yDirection);
-  EXPECT_EQ(127, driveStateCommand->zDirection);
+  EXPECT_EQ(127,  driveStateCommand->zDirection);
 
   packedBytes[0U] = 23;
   packedBytes[1U] = -3;
   packedBytes[2U] = 43;
+  packedBytes[3U] = 72;
 
-  driveStateCommand->unpack(packedBytes, 4U);
+  driveStateCommand->unpack(packedBytes);
 
-  EXPECT_EQ(-1, driveStateCommand->xDirection);
+  EXPECT_EQ(-1,   driveStateCommand->xDirection);
   EXPECT_EQ(-128, driveStateCommand->yDirection);
-  EXPECT_EQ(127, driveStateCommand->zDirection);
+  EXPECT_EQ(127,  driveStateCommand->zDirection);
 
 }
 
