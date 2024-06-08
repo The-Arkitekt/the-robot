@@ -24,10 +24,6 @@ ADD dev-environment/neovim-config/ .config/nvim/
 ADD dev-environment/tmux-config/ .config/tmux/
 RUN echo $password | sudo -S chown -R development-user .config/
 
-# Add the project design directory to container
-ADD design/ design/
-RUN echo $password | sudo -S chown -R development-user design/
-
-# Add the project source code to container
-ADD source/ source/
+# Add the source code to container
+ADD source/ source
 RUN echo $password | sudo -S chown -R development-user source/
