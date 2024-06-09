@@ -1,0 +1,43 @@
+@startuml
+
+interface Message
+{
+  + init() : void
+  + identifier() const : uint8_t
+  + pack() : ArrayList<uint8_t>
+  + unpack(const ArrayList<uint8_t>& data) : void
+}
+
+class DriveStateCommand
+{
+  + init() : void
+  + identifier() const : uint8_t
+  + pack() : ArrayList<uint8_t>
+  + unpack(const ArrayList<uint8_t>& data) : void
+
+  -- Message Fields --
+  + xDirection : int8_t
+  + yDirection : int8_t
+  + zDirection : int8_t
+  --
+
+  - static const IDENTIFIER : uint8_t 
+  - static const NUM_BYTES : uint32_t
+  - packedBytes : ArrayList<uint8_t>
+
+}
+
+class SingletonMessageBroker
+{
+  + killInstance() 
+
+}
+
+enum Topic
+{
+
+}
+
+
+
+@enduml
