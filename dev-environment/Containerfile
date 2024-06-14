@@ -27,3 +27,7 @@ RUN echo $password | sudo -S chown -R development-user .config/
 # Add the source code to container
 ADD source/ source
 RUN echo $password | sudo -S chown -R development-user source/
+
+# Add the designs to container
+ADD design/ design
+RUN echo $password | sudo -S chown -R development-user design/
