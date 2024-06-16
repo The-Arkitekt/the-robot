@@ -17,7 +17,7 @@ USER development-user
 WORKDIR /home/development-user
 
 # Update packages and get dependencies
-RUN echo $password | sudo -S pacman -S --noconfirm gcc git neovim tmux make cmake gdb
+RUN echo $password | sudo -S pacman -S --noconfirm gcc git neovim tmux make cmake gdb jdk-openjdk nsxiv fontconfig ttf-dejavu plantuml graphviz 
 
 # Add the nvim and tmux config directory to container so nvim can use it
 ADD dev-environment/neovim-config/ .config/nvim/

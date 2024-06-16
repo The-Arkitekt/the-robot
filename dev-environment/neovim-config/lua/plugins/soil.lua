@@ -7,6 +7,15 @@ return
     "javiorfo/nvim-nyctophilia"
   },
   config = function()
-    vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>', {})
+    require('soil').setup {
+      image = {
+        darkmode = false,
+        format   = "png",
+
+        execute_to_open = function(img)
+          return "nsxiv -b " .. img
+        end
+      }
+    }
   end
 }
