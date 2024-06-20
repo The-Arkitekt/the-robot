@@ -4,6 +4,7 @@ list(APPEND SOURCES
   LinkedList.cpp
   Node.cpp
   Queue.cpp
+  DataBroker.cpp
 )
 
 add_library(Utils ${SOURCES})

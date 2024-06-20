@@ -1,12 +1,12 @@
 @startuml
 
 node "Services" {
-  [Remote Access Gateway] as RAG
+  [Remote Access Gateway]    as RAG
   [Remote Data Entrance]     as RDE
-  [Drive Status Reporter] as DSR
-  [Drive Controller]      as DC
-  [Drive Operator]        as DO
-  [Remote Data Exit]    as RDE
+  [Drive Status Reporter]    as DSR
+  [Drive State Maintainer]   as DSM
+  [Drive Controller]         as DC
+  [Remote Data Exit]         as RDE
 }
 
 node "Infrastructure" {
@@ -17,13 +17,13 @@ node "Infrastructure" {
 RAG .down.> MSG
 RDE .down.> MSG
 DSR .down.> MSG
+DSM .down.> MSG
 DC  .down.> MSG
-DO  .down.> MSG
 RDE .down.> MSG
 
 RAG .down.> HI
 DSR .down.> HI
-DO .down.> HI
+DC  .down.> HI
 
 
 @enduml

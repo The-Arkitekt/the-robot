@@ -20,4 +20,16 @@ Node<T>::~Node()
 {
 }
 
+template<typename T>
+Node<T>& Node<T>::operator =(const Node<T>& rhs)
+{
+  if (this != &rhs)
+  {
+    object = rhs.object;
+    child  = rhs.child;
+  }
+
+  return *this;
+}
+
 }

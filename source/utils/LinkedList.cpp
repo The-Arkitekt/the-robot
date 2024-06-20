@@ -2,9 +2,6 @@ namespace utils
 {
 
 template<typename T>
-const uint64_t LinkedList<T>::MAX_LINKED_LIST_SIZE = 25U;
-
-template<typename T>
 LinkedList<T>::LinkedList():
   defaultNode(),
   numNodes   (0U),
@@ -16,19 +13,13 @@ LinkedList<T>::LinkedList():
 template<typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& other):
   defaultNode(),
-  numNodes   (other.numNodes),
   headPointer(nullptr),
   tailPointer(nullptr)
 {
   Node<T> * currentNode = other.headPointer;
 
-  for (uint64_t i = 0U; i < other.numNodes; ++i)
+  while (nullptr != currentNode)
   {
-    if (nullptr == currentNode)
-    {
-      return;
-    }
-    
     push(currentNode->object);
     currentNode = currentNode->child;
   }
@@ -48,15 +39,9 @@ LinkedList<T>& LinkedList<T>::operator =(const LinkedList<T>& rhs)
     clear();
 
     Node<T> * currentNode = rhs.headPointer;
-
-    for (uint64_t i = 0U; i < rhs.numNodes; ++i)
+    
+    while (nullptr != currentNode)
     {
-      if (nullptr == currentNode)
-      {
-        clear();
-        return *this;
-      }
-
       push(currentNode->object);
       currentNode = currentNode->child;
     }
@@ -66,21 +51,8 @@ LinkedList<T>& LinkedList<T>::operator =(const LinkedList<T>& rhs)
 }
 
 template<typename T>
-uint64_t LinkedList<T>::size() const
-{
-  return numNodes;
-}
-
-template<typename T>
 void LinkedList<T>::push(const T& object)
 {
-  //-----------------------------
-  // Case 1: Max capacity
-  if (MAX_LINKED_LIST_SIZE == numNodes)
-  {
-    return;
-  }
-
   Node<T> * node = new(std::nothrow) Node<T>(object);
   if (nullptr == node)
   {
@@ -104,8 +76,6 @@ void LinkedList<T>::push(const T& object)
     tailPointer->child = node;   
     tailPointer        = tailPointer->child;
   }
-
-  ++numNodes;
 }
 
 template<typename T>
@@ -155,8 +125,6 @@ const Node<T>& LinkedList<T>::tail() const
 template<typename T>
 void LinkedList<T>::clear()
 {
-  numNodes = 0U;
-
   //--------------------------
   // Case 1: Empty list
   if (nullptr == headPointer)

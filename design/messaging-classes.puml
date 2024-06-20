@@ -1,5 +1,7 @@
 @startuml
 
+class Observer <<Message>>
+
 interface Message
 {
   + init() : void
@@ -20,24 +22,14 @@ class DriveStateCommand
   + yDirection : int8_t
   + zDirection : int8_t
   --
-
-  - static const IDENTIFIER : uint8_t 
-  - static const NUM_BYTES : uint32_t
-  - packedBytes : ArrayList<uint8_t>
-
 }
 
-class SingletonMessageBroker
+enum Topics
 {
-  + killInstance() 
-
+  + DRIVE_STATE_COMMAND_TOPIC
 }
 
-enum Topic
-{
-
-}
-
-
+Observer ..> Message
+DriveStateCommand --|> Message
 
 @enduml

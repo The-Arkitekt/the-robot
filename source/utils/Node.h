@@ -13,6 +13,9 @@ public:
   Node(const T& object);
   ~Node();
 
+  Node<T>& operator =(const Node<T>& rhs);
+
+
   T object;
   Node<T> * child;
 

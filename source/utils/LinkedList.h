@@ -18,7 +18,6 @@ public:
 
   LinkedList<T>& operator =(const LinkedList<T>& rhs);  
 
-  uint64_t       size() const;
   void           push(const T& object);
   Node<T>&       head();
   Node<T>&       tail();
@@ -26,12 +25,9 @@ public:
   const Node<T>& tail() const;
   void           clear();
 
-  static const uint64_t MAX_LINKED_LIST_SIZE;
-
 private:
 
   Node<T>   defaultNode;
-  uint64_t  numNodes;
   Node<T> * headPointer;
   Node<T> * tailPointer;
 
