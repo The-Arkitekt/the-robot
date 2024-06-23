@@ -21,16 +21,11 @@ repeat
   * Translates signals from hardware to DriveStateStatus messages
   * Produces DriveStateStatus to MessageBroker;
 
-:Drive State Maintainer
+:Drive State Controller
   * Consumes DriveStateCommand from MessageBroker
   * Consumes DriveStatus from MessageBroker
   * Generates DriveControlCommand using control algorithm
   * Produces DriveControlCommand to MessageBroker;
-
-:Drive Controller
-  * Consumes DriveControlCommand from MessageBroker
-  * Translates DriveControlCommand to signals for the hardware
-  * Transmits data to drive system hardware;
 
 :Remote Data Exit
   * Consumes target messages from MessageBroker

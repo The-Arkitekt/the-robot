@@ -1,0 +1,10 @@
+@startuml
+
+component Main {
+  class "SuperLoop" as SL
+  interface "Service" as S
+  class "ServiceBuilder" as SB
+  
+}
+
+@enduml

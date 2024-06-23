@@ -1,29 +1,46 @@
 @startuml
+skinparam linetype polyline
 
-node "Services" {
-  [Remote Access Gateway]    as RAG
-  [Remote Data Entrance]     as RDE
-  [Drive Status Reporter]    as DSR
-  [Drive State Maintainer]   as DSM
-  [Drive Controller]         as DC
-  [Remote Data Exit]         as RDE
+actor "End User" as EU
+
+frame TheRobot {
+  frame ServiceLayer {
+    component "Main" as M
+    component "ServiceFactory" as SF
+    component "Remote Access Gateway" as RAG
+    component "Remote Data Entrance" as RDEN
+    component "Drive Status Reporter" as DSR
+    component "Drive State Controller" as DSC
+    component "Remote Data Exit" as RDEX
+  }
+  
+  frame HardwareLayer {
+    component "General Purpose Input Output" as GPIO
+    component "Pulse Width Modulation" as PWM
+    component "Universal Asynchronous Receive Transmit" as UART
+    component "I2C" as I2C
+  }
 }
 
-node "Infrastructure" {
-  [Messaging] as MSG
-  [Hardware Interface] as HI
-}
+EU <<-down->> RAG
 
-RAG .down.> MSG
-RDE .down.> MSG
-DSR .down.> MSG
-DSM .down.> MSG
-DC  .down.> MSG
-RDE .down.> MSG
+''' Intra ServiceLayer
+M .left.>> SF
 
-RAG .down.> HI
-DSR .down.> HI
-DC  .down.> HI
+RAG  .up.>> M
+RAG  .up.>> SF
+RDEN .up.>> M
+RDEN .up.>> SF
+DSR  .up.>> M
+DSR  .up.>> SF
+DSC  .up.>> M
+DSC  .up.>> SF
+RDEX .up.>> M
+RDEX .up.>> SF
 
+''' ServiceLayer to HardwareLayer
+RAG .down.>> UART
+DSR .down.>> I2C
+DSC .down.>> PWM
 
 @enduml
