@@ -1,0 +1,31 @@
+@startuml
+
+component ServiceFactory {
+  interface "Service" as S
+  {
+    + configure() : void
+    + 
+  }
+
+  enum "ServiceType" as ST
+  {
+    + DRIVE_STATE_CONTROLLER
+    + DRIVE_STATUS_REPORTER
+    + REMOTE_ACCESS_GATEWAY
+    + REMOTE_DATA_ENTRANCE
+    + REMOTE_DATA_EXIT
+  }
+
+  interface "ServiceFactory" as SF
+  {
+    + static createService(const ServiceType& serviceType) : Service*
+  }
+
+  class "ConcreteServiceFactory" as CSF
+}
+
+SF .u.> S
+SF .u.> ST
+CSF -u-|> SF
+
+@enduml

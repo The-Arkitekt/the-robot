@@ -1,0 +1,32 @@
+@startuml
+
+Participant "ServiceHeadQuarters" as SHQ
+Participant "ConcreteServiceFactory" as SF
+
+SHQ -> SF ++ #LIGHTGREY : createService(serviceType)
+
+alt serviceType is DRIVE_STATE_CONTROLLER
+
+  SF --> SHQ : new DriveStateController()
+
+else serviceType is DRIVE_STATUS_REPORTER
+ 
+  SF --> SHQ : new DriveStatusReporter()
+
+else serviceType is REMOTE_ACCESS_GATEWAY
+
+  SF --> SHQ : new RemoteAccessGateway()
+
+else serviceType is REMOTE_DATA_ENTRANCE
+
+  SF --> SHQ : new RemoteDataEntrance()
+
+else serviceType is REMOTE_DATA_EXIT
+
+  SF --> SHQ : new RemoteDataExit()
+
+end
+
+deactivate SF
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+
+Participant "Main" as M
+Participant "ServiceHeadQuarters" as SA
+Participant "ServiceScheduler" as SS
+
+-> M ++ #LIGHTGREY : main()
+
+M -> SA ++ #LIGHTGREY : initializeServices()
+return
+
+M -> SA ++ #LIGHTGREY : getServiceList()
+return services
+
+M -> SS ++ #LIGHTGREY : initializeSchedule(services)
+return
+
+M -> SS ++ #LIGHTGREY : runSchedule()
+
+
+
+
+@enduml

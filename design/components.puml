@@ -6,7 +6,7 @@ actor "End User" as EU
 frame TheRobot {
   frame ServiceLayer {
     component "Main" as M
-    component "ServiceFactory" as SF
+    component "Service Factory" as SF
     component "Remote Access Gateway" as RAG
     component "Remote Data Entrance" as RDEN
     component "Drive Status Reporter" as DSR
