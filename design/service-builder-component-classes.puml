@@ -1,0 +1,19 @@
+@startuml
+
+component ServiceBuilder {
+  interface "Service" as S
+  {
+    + initialize() : void
+    + run() : void
+  }
+
+  interface "ServiceFactory" as SF
+  {
+    + static createService(const ServiceType& serviceType) : Service*
+  }
+
+}
+
+SF .u.> S
+
+@enduml

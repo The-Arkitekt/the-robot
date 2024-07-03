@@ -1,10 +1,2 @@
-list(APPEND SOURCES 
-  ArrayList.cpp
-  HashMap.cpp
-  LinkedList.cpp
-  Node.cpp
-  Queue.cpp
-  DataBroker.cpp
-)
+set(CONTROLLER_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/controller):w
 
-add_library(Utils ${SOURCES})

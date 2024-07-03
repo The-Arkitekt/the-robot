@@ -24,8 +24,7 @@ repeat
 :Drive State Controller
   * Consumes DriveStateCommand from MessageBroker
   * Consumes DriveStatus from MessageBroker
-  * Generates DriveControlCommand using control algorithm
-  * Produces DriveControlCommand to MessageBroker;
+  * Generates drive control signals using control algorithm
 
 :Remote Data Exit
   * Consumes target messages from MessageBroker

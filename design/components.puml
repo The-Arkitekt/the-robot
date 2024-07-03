@@ -6,7 +6,7 @@ actor "End User" as EU
 frame TheRobot {
   frame ServiceLayer {
     component "Main" as M
-    component "Service Factory" as SF
+    component "Service Builder" as SB
     component "Remote Access Gateway" as RAG
     component "Remote Data Entrance" as RDEN
     component "Drive Status Reporter" as DSR
@@ -25,18 +25,18 @@ frame TheRobot {
 EU <<-down->> RAG
 
 ''' Intra ServiceLayer
-M .left.>> SF
+M .left.>> SB
 
 RAG  .up.>> M
-RAG  .up.>> SF
+RAG  .up.>> SB
 RDEN .up.>> M
-RDEN .up.>> SF
+RDEN .up.>> SB
 DSR  .up.>> M
-DSR  .up.>> SF
+DSR  .up.>> SB
 DSC  .up.>> M
-DSC  .up.>> SF
+DSC  .up.>> SB
 RDEX .up.>> M
-RDEX .up.>> SF
+RDEX .up.>> SB
 
 ''' ServiceLayer to HardwareLayer
 RAG .down.>> UART
