@@ -11,8 +11,8 @@ class ArrayList
 {
 public:
  
-  ArrayList();
-  ArrayList(const uint64_t startingSize);
+  ArrayList(const T& defaultValue);
+  ArrayList(const T& defaultValue, const uint64_t startingSize);
   ArrayList(const ArrayList& other);
   ~ArrayList();
 

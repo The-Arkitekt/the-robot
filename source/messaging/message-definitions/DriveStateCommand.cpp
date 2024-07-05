@@ -8,7 +8,7 @@ DriveStateCommand::DriveStateCommand():
   xDirection (0),
   yDirection (0),
   zDirection (0),
-  packedBytes()
+  packedBytes(0U)
 {
 }
 
@@ -18,7 +18,7 @@ DriveStateCommand::DriveStateCommand(const int8_t xDirection,
   xDirection (xDirection),
   yDirection (yDirection),
   zDirection (zDirection),
-  packedBytes()
+  packedBytes(0U)
 {
 }
 

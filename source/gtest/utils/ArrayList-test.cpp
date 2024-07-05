@@ -9,7 +9,8 @@ class ArrayListTest : public testing::Test
 protected:
 
   ArrayListTest():
-    arrayList()
+    defaultValue(0U),
+    arrayList   (defaultValue)
   {
   }
 
@@ -28,10 +29,11 @@ protected:
 public:
 
   utils::ArrayList<uint8_t> arrayList;
+  uint8_t                   defaultValue;
 
 };
 
-TEST_F(ArrayListTest, DefaultConstructor)
+TEST_F(ArrayListTest, SizeZeroConstructor)
 {
   EXPECT_EQ(0U, arrayList.size());
 }
@@ -39,17 +41,22 @@ TEST_F(ArrayListTest, DefaultConstructor)
 TEST_F(ArrayListTest, StartingSizeConstructor)
 {
   const uint64_t startingSize = 5U;
+  const uint8_t  defaultValue = 1U;
   
-  utils::ArrayList<uint8_t> initializedArrayList(startingSize);
+  utils::ArrayList<uint8_t> initializedArrayList(defaultValue, startingSize);
   
   EXPECT_EQ(startingSize, initializedArrayList.size());
+  for (uint64_t i = 0U; i < startingSize; ++i)
+  {
+    EXPECT_EQ(defaultValue, initializedArrayList[i]);
+  }
 }
 
 TEST_F(ArrayListTest, CopyConstructor)
 {
   const uint64_t size = 12U;
   arrayList.resize(size);
-  
+
   for (uint64_t i = 0U; i < size; ++i)
   {
     arrayList[i] = i;
@@ -72,7 +79,7 @@ TEST_F(ArrayListTest, AssignmentOperator)
   arrayList[0U] = 10U;
   arrayList[1U] = 20U;
 
-  utils::ArrayList<uint8_t> assignedArrayList;
+  utils::ArrayList<uint8_t> assignedArrayList(0U);
 
   assignedArrayList = arrayList;
 
@@ -83,8 +90,14 @@ TEST_F(ArrayListTest, AssignmentOperator)
 
 TEST_F(ArrayListTest, Resize)
 {
-  arrayList.resize(542);
-  EXPECT_EQ(542, arrayList.size());
+  const uint64_t newSize = 542U;
+  arrayList.resize(newSize);
+  EXPECT_EQ(newSize, arrayList.size());
+
+  for (uint64_t i = 0U; i < newSize; ++i)
+  {
+    EXPECT_EQ(defaultValue, arrayList[i]);
+  }
 }
 
 TEST_F(ArrayListTest, clear)

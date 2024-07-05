@@ -23,13 +23,13 @@ enable_testing()
 #########################################
 # Setup files and directories
 #
+set(GTEST_MESSAGING_DIR ${CMAKE_CURRENT_SOURCE_DIR}/messaging)
+set(GTEST_UTILS_DIR     ${CMAKE_CURRENT_SOURCE_DIR}/utils)
+set(MESSAGING_DIR       ${CMAKE_CURRENT_SOURCE_DIR}/../messaging)
+set(UTILS_DIR           ${CMAKE_CURRENT_SOURCE_DIR}/../utils)
+set(ARRAY_LIST_DIR      ${UTILS_DIR}/array-list)
 
-set(GTEST_UTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/utils)
-set(MESSAGING_DIR   ${CMAKE_CURRENT_SOURCE_DIR}/../messaging)
-set(UTILS_DIR       ${CMAKE_CURRENT_SOURCE_DIR}/../utils)
-set(ARRAY_LIST_DIR  ${UTILS_DIR}/array-list)
-
-add_subdirectory(${MESSAGING_DIR}  messaging_bld)
+add_subdirectory(${MESSAGING_DIR} messaging_bld)
 
 list(APPEND LINK_LIBRARIES
   Messaging
@@ -37,12 +37,10 @@ list(APPEND LINK_LIBRARIES
 
 list(APPEND INCLUDE_DIRS
   ${ARRAY_LIST_DIR}
-  #${MESSAGING_DIR}
-  #${GTEST_UTILS_DIR}
 )
 
 list(APPEND SOURCES
-  DriveStateCommand-test.cpp
+  ${GTEST_MESSAGING_DIR}/DriveStateCommand-test.cpp
   ${GTEST_UTILS_DIR}/ArrayList-test.cpp
 )
 

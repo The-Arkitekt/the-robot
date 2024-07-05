@@ -4,13 +4,13 @@ namespace utils
 {
 
 template<typename T>
-Queue<T>::Queue(const uint64_t capacity):
-  defaultObject(),
+Queue<T>::Queue(const T& defaultValue, const uint64_t capacity):
+  defaultObject(defaultValue),
   capacity     (capacity),
   numObjects   (0U),
   headIndex    (0U),
   tailIndex    (0U),
-  arrayList    (capacity)
+  arrayList    (defaultValue, capacity)
 {
 }
 

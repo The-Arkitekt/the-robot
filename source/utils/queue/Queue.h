@@ -12,7 +12,7 @@ class Queue
 {
 public:
 
-  Queue(const uint64_t capacity);
+  Queue(const T& defaultValue, const uint64_t capacity);
   ~Queue();
 
   uint64_t size() const;

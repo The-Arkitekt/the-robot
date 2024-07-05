@@ -4,16 +4,16 @@ namespace utils
 {
 
 template<typename T>
-ArrayList<T>::ArrayList():
-  defaultObject(),
+ArrayList<T>::ArrayList(const T& defaultValue):
+  defaultObject(defaultValue),
   numObjects   (0U),
   arr          (nullptr)
 {
 }
 
 template<typename T>
-ArrayList<T>::ArrayList(const uint64_t startingSize):
-  defaultObject(),
+ArrayList<T>::ArrayList(const T& defaultValue, const uint64_t startingSize):
+  defaultObject(defaultValue),
   numObjects   (0U),
   arr          (nullptr)
 {
@@ -22,6 +22,10 @@ ArrayList<T>::ArrayList(const uint64_t startingSize):
   if (nullptr != arr)
   {
     numObjects = startingSize;
+    for (uint64_t i = 0U; i < numObjects; ++i)
+    {
+      arr[i] = defaultObject;
+    }
   }
 }
 
@@ -104,6 +108,9 @@ void ArrayList<T>::resize(const uint64_t newSize)
 {
   T * newArr = new(std::nothrow) T[newSize];
 
+  // If newSize is 0U, this early return will trigger. This is 
+  // expected behavior. Sizing to 0U should be done with
+  // the clear() function.
   if (nullptr == newArr)
   {
     return;
