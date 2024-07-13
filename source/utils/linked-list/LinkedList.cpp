@@ -2,9 +2,8 @@ namespace utils
 {
 
 template<typename T>
-LinkedList<T>::LinkedList():
-  defaultNode(),
-  numNodes   (0U),
+LinkedList<T>::LinkedList(const T& defaultValue):
+  defaultNode(defaultValue),
   headPointer(nullptr),
   tailPointer(nullptr)
 {
@@ -37,46 +36,13 @@ LinkedList<T>& LinkedList<T>::operator =(const LinkedList<T>& rhs)
   if (this != &rhs)
   {
     clear();
-
-    Node<T> * currentNode = rhs.headPointer;
-    
-    while (nullptr != currentNode)
-    {
-      push(currentNode->object);
-      currentNode = currentNode->child;
-    }
+    this.headPointer = rhs.headPointer;
+    this.tailPointer = rhs.tailPointer;
   }
 
   return *this;
 }
 
-template<typename T>
-void LinkedList<T>::push(const T& object)
-{
-  Node<T> * node = new(std::nothrow) Node<T>(object);
-  if (nullptr == node)
-  {
-    return;
-  }
-
-  //-----------------------------
-  // Case 2: First Link
-  if ((nullptr == headPointer) &&
-      (nullptr == tailPointer))
-  {
-    headPointer        = node;
-    tailPointer        = node;
-    headPointer->child = tailPointer;
-  }
-
-  //----------------------------
-  // Case 3: Subsequent Links
-  else
-  {
-    tailPointer->child = node;   
-    tailPointer        = tailPointer->child;
-  }
-}
 
 template<typename T>
 Node<T>& LinkedList<T>::head()
@@ -120,6 +86,52 @@ const Node<T>& LinkedList<T>::tail() const
   }
 
   return * tailPointer;
+}
+
+template<typename T>
+void LinkedList<T>::pushToBack(const T& object)
+{
+  Node<T> * node = new(std::nothrow) Node<T>(object);
+  if (nullptr == node)
+  {
+    return;
+  }
+
+  //-----------------------------
+  // Case 2: First Link
+  if ((nullptr == headPointer) &&
+      (nullptr == tailPointer))
+  {
+    headPointer        = node;
+    tailPointer        = node;
+  }
+
+  //----------------------------
+  // Case 3: Subsequent Links
+  else
+  {
+    tailPointer->child = node;   
+    tailPointer        = tailPointer->child;
+  }
+}
+
+template<typename T>
+const T LinkedList<T>::popFromFront()
+{
+  if (nullptr == headPointer)
+  {
+    return defaultNode.object;
+  }
+
+  // Get current head value, delete the head and 
+  // reassign to it's child
+  const T returnValue      = headPointer->object;
+  Node<T> * tmpHeadPointer = headPointer;
+  headPointer              = headPointer->child;
+
+  delete tmpHeadPointer;
+
+  return returnValue;
 }
 
 template<typename T>

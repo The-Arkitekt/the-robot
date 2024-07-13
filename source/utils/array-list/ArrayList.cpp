@@ -12,7 +12,7 @@ ArrayList<T>::ArrayList(const T& defaultValue):
 }
 
 template<typename T>
-ArrayList<T>::ArrayList(const T& defaultValue, const uint64_t startingSize):
+ArrayList<T>::ArrayList(const uint64_t startingSize, const T& defaultValue):
   defaultObject(defaultValue),
   numObjects   (0U),
   arr          (nullptr)
@@ -116,9 +116,17 @@ void ArrayList<T>::resize(const uint64_t newSize)
     return;
   }
 
-  for (uint64_t i = 0U; i < numObjects; ++i)
+  // Copy contents and set rest to default if necessary
+  for (uint64_t i = 0U; i < newSize; ++i)
   {
-    newArr[i] = arr[i];
+    if (i < numObjects)
+    {
+       newArr[i] = arr[i];
+    }
+    else
+    {
+       newArr[i] = defaultObject;
+    }
   }
 
   delete[] arr;

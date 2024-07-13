@@ -12,7 +12,7 @@ class ArrayList
 public:
  
   ArrayList(const T& defaultValue);
-  ArrayList(const T& defaultValue, const uint64_t startingSize);
+  ArrayList(const uint64_t startingSize, const T& defaultValue);
   ArrayList(const ArrayList& other);
   ~ArrayList();
 
@@ -26,8 +26,8 @@ public:
 
 private:
 
-  T        defaultObject;
   uint64_t numObjects;
+  T        defaultObject;
   T *      arr;
 
 };

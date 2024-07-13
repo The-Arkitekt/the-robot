@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <cstdint>
-#include "ArrayList.h"
+#include "LinkedList.h"
 
 namespace utils
 {
@@ -12,23 +12,21 @@ class Queue
 {
 public:
 
-  Queue(const T& defaultValue, const uint64_t maxObjects);
+  Queue(const uint64_t maxObjects, const T& defaultValue);
   ~Queue();
 
   uint64_t size() const;
   uint64_t capacity() const;
   void     push(const T& object);
-  const T& pop();
+  const T  pop();
   void     clear();
 
 private:
 
+  uint64_t       maxObjects;
   T              defaultObject;
-  const uint64_t maxObjects;
   uint64_t       numObjects;
-  uint64_t       headIndex;
-  uint64_t       tailIndex;
-  ArrayList<T>   arrayList;
+  LinkedList<T>  linkedList;
 };
 
 }

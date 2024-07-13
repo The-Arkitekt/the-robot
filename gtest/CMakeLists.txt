@@ -30,6 +30,8 @@ set(MESSAGING_DIR       ${ROBOT_SOURCE_DIR}/messaging)
 set(UTILS_DIR           ${ROBOT_SOURCE_DIR}/utils)
 set(ARRAY_LIST_DIR      ${UTILS_DIR}/array-list)
 set(QUEUE_DIR           ${UTILS_DIR}/queue)
+set(LINKED_LIST_DIR     ${UTILS_DIR}/linked-list)
+set(NODE_DIR            ${UTILS_DIR}/node)
 
 add_subdirectory(${MESSAGING_DIR} messaging_bld)
 
@@ -40,12 +42,15 @@ list(APPEND LINK_LIBRARIES
 list(APPEND INCLUDE_DIRS
   ${ARRAY_LIST_DIR}
   ${QUEUE_DIR}
+  ${LINKED_LIST_DIR}
+  ${NODE_DIR}
 )
 
 list(APPEND SOURCES
   ${GTEST_MESSAGING_DIR}/DriveStateCommand-test.cpp
   ${GTEST_UTILS_DIR}/ArrayList-test.cpp
   ${GTEST_UTILS_DIR}/Queue-test.cpp
+  ${GTEST_UTILS_DIR}/LinkedList-test.cpp
 )
 
 ########################################

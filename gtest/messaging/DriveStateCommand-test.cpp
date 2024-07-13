@@ -86,7 +86,7 @@ TEST_F(DriveStateCommandTest, pack)
 
 TEST_F(DriveStateCommandTest, unpack)
 {
-  utils::ArrayList<uint8_t> packedBytes(0U, 4U);
+  utils::ArrayList<uint8_t> packedBytes(4U, 0U);
   packedBytes[0U] = driveStateCommand.identifier();
   packedBytes[1U] = 255;
   packedBytes[2U] = 128;
