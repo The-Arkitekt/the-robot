@@ -4,13 +4,13 @@ namespace utils
 {
 
 template<typename T>
-Queue<T>::Queue(const T& defaultValue, const uint64_t capacity):
+Queue<T>::Queue(const T& defaultValue, const uint64_t maxObjects):
   defaultObject(defaultValue),
-  capacity     (capacity),
+  maxObjects   (maxObjects),
   numObjects   (0U),
   headIndex    (0U),
   tailIndex    (0U),
-  arrayList    (defaultValue, capacity)
+  arrayList    (defaultValue, maxObjects)
 {
 }
 
@@ -20,28 +20,40 @@ Queue<T>::~Queue()
 }
 
 template<typename T>
-const uint8_t Queue<T>::size() const
+uint64_t Queue<T>::size() const
 {
   return numObjects;
 }
 
 template<typename T>
-void Queue<T>::push(T& object)
+uint64_t Queue<T>::capacity() const
 {
+  return maxObjects;
+}
+
+template<typename T>
+void Queue<T>::push(const T& object)
+{
+  //-------------------------------
+  // Case 1: Queue is full
+  if (maxObjects == numObjects)
+  {
+    return;
+  }
+  
   //--------------------------------
   // Case 1: Queue is empty
   if (0U == numObjects)
   {
     arrayList[tailIndex] = object;
-    return;
   }
 
   //-------------------------------
   // Case 2: Queue is NOT empty
   //         Wrap tail index if necessary
-  else 
+  else
   {
-    if (capacity == ++tailIndex)
+    if (maxObjects == ++tailIndex)
     {
       tailIndex = 0U;
     }
@@ -49,7 +61,6 @@ void Queue<T>::push(T& object)
     arrayList[tailIndex] = object;
   }
 
-  // Increment num objects if push is successful
   ++numObjects;
 }
 
@@ -68,7 +79,7 @@ const T& Queue<T>::pop()
   const uint64_t popIndex = headIndex++;
 
   // Wrap head index if necessary
-  if (capacity == headIndex)
+  if (maxObjects == headIndex)
   {
     headIndex = 0U;
   }
@@ -78,7 +89,8 @@ const T& Queue<T>::pop()
   return arrayList[popIndex];
 }
 
-void Queue::clear()
+template<typename T>
+void Queue<T>::clear()
 {
   numObjects = 0U;
   headIndex  = 0U;
@@ -86,7 +98,7 @@ void Queue::clear()
 
   for(uint64_t i = 0U; i < arrayList.size(); ++i)
   {
-    arrayList[i] = T();
+    arrayList[i] = defaultObject;
   }
 }
 

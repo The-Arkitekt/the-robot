@@ -1,0 +1,109 @@
+#include <gtest/gtest.h>
+#include "Queue.h"
+
+namespace gtest
+{
+
+class QueueTest : public testing::Test
+{
+protected:
+
+  QueueTest()
+  {
+  }
+
+  ~QueueTest() override
+  {
+  }
+
+  void SetUp() override
+  {
+  }
+
+  void TearDown() override
+  {
+  }
+};
+
+TEST_F(QueueTest, Constructor)
+{
+  const uint64_t capacity = 543;
+  utils::Queue<uint8_t> queue(0U, capacity);
+
+  EXPECT_EQ(capacity, queue.capacity());
+
+  //Starting size is still 0 until something is pushed to the queue
+  EXPECT_EQ(0U, queue.size());
+}
+
+TEST_F(QueueTest, PushUntilFullThenPop)
+{
+  const uint64_t capacity = 5U;
+  utils::Queue<uint8_t> queue(0U, capacity);
+
+  for (uint64_t i = 0U; i < capacity; ++i)
+  {
+    ASSERT_LT(i, queue.capacity());
+    
+    queue.push(static_cast<uint8_t>(i));
+    EXPECT_EQ(i + 1U, queue.size());
+  }
+
+  for (uint64_t i = 0U; i < capacity; ++i)
+  {
+    uint8_t val = queue.pop();
+    EXPECT_EQ(i, static_cast<uint64_t>(val));
+    EXPECT_EQ(capacity - i - 1U, queue.size());
+  }
+}
+
+TEST_F(QueueTest, PushOverCapacity)
+{
+  const uint64_t capacity = 1U;
+  utils::Queue<uint8_t> queue(2U, capacity);
+
+  uint8_t firstVal = 23U;
+  queue.push(firstVal);
+
+  uint8_t secondVal = 32U;
+  queue.push(secondVal);
+
+  uint8_t poppedVal = queue.pop();
+
+  EXPECT_EQ(firstVal, poppedVal);
+}
+
+TEST_F(QueueTest, PopEmpty)
+{
+  uint8_t defaultValue = 4U;
+  utils::Queue<uint8_t> queue(defaultValue, 1U);
+
+  uint8_t poppedVal = queue.pop();
+
+  EXPECT_EQ(defaultValue, poppedVal);
+}
+
+TEST_F(QueueTest, clear)
+{
+  uint64_t capacity   = 5U;
+  uint16_t defaultVal = 10U;
+  utils::Queue<uint16_t> queue(defaultVal, capacity);
+
+  for (uint64_t i = 0U; i < capacity; ++i)
+  {
+    queue.push(static_cast<uint16_t>(i));
+  }
+
+  queue.clear();
+  
+  EXPECT_EQ(0U, queue.size());
+  EXPECT_EQ(capacity, queue.capacity());
+  uint16_t poppedVal = queue.pop();
+  EXPECT_EQ(defaultVal, poppedVal);
+
+}
+
+} 
+
+
+

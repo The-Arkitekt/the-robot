@@ -7,15 +7,16 @@
 namespace utils
 {
 
-Template<typename T>
+template<typename T>
 class Queue
 {
 public:
 
-  Queue(const T& defaultValue, const uint64_t capacity);
+  Queue(const T& defaultValue, const uint64_t maxObjects);
   ~Queue();
 
   uint64_t size() const;
+  uint64_t capacity() const;
   void     push(const T& object);
   const T& pop();
   void     clear();
@@ -23,7 +24,7 @@ public:
 private:
 
   T              defaultObject;
-  const uint64_t capacity;
+  const uint64_t maxObjects;
   uint64_t       numObjects;
   uint64_t       headIndex;
   uint64_t       tailIndex;

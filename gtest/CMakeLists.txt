@@ -25,9 +25,11 @@ enable_testing()
 #
 set(GTEST_MESSAGING_DIR ${CMAKE_CURRENT_SOURCE_DIR}/messaging)
 set(GTEST_UTILS_DIR     ${CMAKE_CURRENT_SOURCE_DIR}/utils)
-set(MESSAGING_DIR       ${CMAKE_CURRENT_SOURCE_DIR}/../messaging)
-set(UTILS_DIR           ${CMAKE_CURRENT_SOURCE_DIR}/../utils)
+set(ROBOT_SOURCE_DIR    ${CMAKE_CURRENT_SOURCE_DIR}/../source)
+set(MESSAGING_DIR       ${ROBOT_SOURCE_DIR}/messaging)
+set(UTILS_DIR           ${ROBOT_SOURCE_DIR}/utils)
 set(ARRAY_LIST_DIR      ${UTILS_DIR}/array-list)
+set(QUEUE_DIR           ${UTILS_DIR}/queue)
 
 add_subdirectory(${MESSAGING_DIR} messaging_bld)
 
@@ -37,11 +39,13 @@ list(APPEND LINK_LIBRARIES
 
 list(APPEND INCLUDE_DIRS
   ${ARRAY_LIST_DIR}
+  ${QUEUE_DIR}
 )
 
 list(APPEND SOURCES
   ${GTEST_MESSAGING_DIR}/DriveStateCommand-test.cpp
   ${GTEST_UTILS_DIR}/ArrayList-test.cpp
+  ${GTEST_UTILS_DIR}/Queue-test.cpp
 )
 
 ########################################
