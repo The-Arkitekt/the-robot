@@ -60,6 +60,7 @@ list(APPEND SOURCES
   ${GTEST_UTILS_DIR}/Queue-test.cpp
   ${GTEST_UTILS_DIR}/LinkedList-test.cpp
   ${GTEST_UTILS_DIR}/DataBroker-test.cpp
+  ${GTEST_UTILS_DIR}/LinearSearchMap-test.cpp
 )
 
 ########################################

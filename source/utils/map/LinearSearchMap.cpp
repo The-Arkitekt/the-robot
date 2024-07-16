@@ -4,6 +4,14 @@ namespace utils
 {
 
 template<typename K, typename V>
+LinearSearchMap<K,V>::LinearSearchMap():
+  defaultObject(),
+  defaultReturn(defaultObject),
+  pairs        (Pair<K,V>(K(), defaultObject))
+{
+}
+
+template<typename K, typename V>
 LinearSearchMap<K,V>::LinearSearchMap(const V& defaultValue):
   defaultObject(defaultValue),
   defaultReturn(defaultValue),
@@ -61,21 +69,13 @@ const V& LinearSearchMap<K,V>::operator [](const K& key) const
 }
 
 template<typename K, typename V>
-Map<K,V>& LinearSearchMap<K,V>::operator =(const Map<K,V>& rhs)
+LinearSearchMap<K,V>& LinearSearchMap<K,V>::operator =(const LinearSearchMap<K,V>& rhs)
 {
   if (this != &rhs)
   {
-    clear();
-    ArrayList<K> keys = rhs.getKeys();
-    uint64_t numKeys  = keys.size();
-    
-    pairs.resize(numKeys);
-
-    for (uint64_t i = 0U; i < numKeys; ++i)
-    {
-      pairs[i].first  = keys[i];
-      pairs[i].second = rhs[keys[i]];
-    }
+    defaultObject = rhs.defaultObject;
+    defaultReturn = defaultObject;
+    pairs         = rhs.pairs;
   }
 
   return *this;

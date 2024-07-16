@@ -13,13 +13,14 @@ class LinearSearchMap : public Map<K,V>
 {
 public:
 
+  LinearSearchMap();
   LinearSearchMap(const V& defaultValue);
   LinearSearchMap(const LinearSearchMap& other);
   ~LinearSearchMap();
 
-  V&        operator [](const K& key);
-  const V&  operator [](const K& key) const;
-  Map<K,V>& operator =(const Map<K,V>& rhs);
+  V&                    operator [](const K& key);
+  const V&              operator [](const K& key) const;
+  LinearSearchMap<K,V>& operator =(const LinearSearchMap<K,V>& rhs);
 
   const ArrayList<K> getKeys() const; 
   void               clear();
