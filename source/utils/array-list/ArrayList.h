@@ -10,7 +10,8 @@ template<typename T>
 class ArrayList
 {
 public:
- 
+
+  ArrayList();
   ArrayList(const T& defaultValue);
   ArrayList(const uint64_t startingSize, const T& defaultValue);
   ArrayList(const ArrayList& other);
@@ -28,6 +29,7 @@ private:
 
   uint64_t numObjects;
   T        defaultObject;
+  T        defaultReturn;
   T *      arr;
 
 };

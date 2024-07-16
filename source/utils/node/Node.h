@@ -9,6 +9,7 @@ class Node
 {
 public:
 
+  Node();
   Node(const T& object);
   ~Node();
 

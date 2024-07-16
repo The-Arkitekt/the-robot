@@ -12,6 +12,7 @@ class LinkedList
 {
 public:
 
+  LinkedList();
   LinkedList(const T& defaultValue);
   LinkedList(const LinkedList<T>& other);
   ~LinkedList();
@@ -29,6 +30,7 @@ public:
 private:
 
   Node<T>   defaultNode;
+  Node<T>   defaultReturn;
   Node<T> * headPointer;
   Node<T> * tailPointer;
 

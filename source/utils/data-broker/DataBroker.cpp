@@ -1,57 +1,39 @@
 namespace utils
 {
 
-template<typename SUBJECT, typename DATA>
-DataBroker<SUBJECT, DATA>::DataBroker():
-  subjects (),
-  observers()   
+template<typename S, typename D>
+DataBroker<S,D>::DataBroker():
+  observers(LinkedList<Observer<D>* >(nullptr))   
 {
 }
 
-template<typename SUBJECT, typename DATA>
-DataBroker<SUBJECT, DATA>::~DataBroker()
+template<typename S, typename D>
+DataBroker<S,D>::~DataBroker()
 {
+  observers.clear();
 }
 
-template<typename SUBJECT, typename DATA>
-void DataBroker<SUBJECT, DATA>::registerObserver(const SUBJECT& subject, Observer<DATA>& observer)
+template<typename S, typename D>
+void DataBroker<S,D>::registerObserver(const S& subject, Observer<D>& observer)
 {
-  // Search for matching SUBJECT
-  const uint64_t numSubjects = subjects.size();
-  for (uint64_t i = 0U; i < numSubjects; ++i)
+  observers[subject].pushToBack(&observer);
+}
+
+template<typename S, typename D>
+void DataBroker<S,D>::update(const S& subject, D& data)
+{
+  const LinkedList<Observer<D> * >& observerList = observers[subject];
+  Node<Observer<D> * > observerNode = observerList.head();
+  Node<Observer<D> * > * observerNodePtr = &observerNode;
+
+  while (nullptr != observerNodePtr)
   {
-    if (subject == subjects[i])
+    if (nullptr != observerNodePtr->object)
     {
-      observers[i].push(&observer);
-      return;
+      observerNodePtr->object->update(data);
     }
-  }
 
-  // Add the SUBJECT if not found
-  ++numSubjects;
-  subjects.resize(numSubjects);
-  observers.resize(numSubjects);
-
-  observers[numSubjects].push(&observer);
-}
-
-template<typename SUBJECT, typename DATA>
-void DataBroker<SUBJECT, DATA>::update(const SUBJECT& subject, DATA& data)
-{
-  // Search for SUBJECT
-  const uint64_t numSubjects = subjects.size();
-  for (uint64_t i = 0U; i < numSubjects; ++i)
-  {
-    if (subject == subjects[i])
-    {
-      // Update each observer
-      Observer<DATA>* currentObserver = observers[i].head();
-      while (nullptr != currentObserver)
-      {
-        currentObserver->update(data);
-        currentNode = currentNode->child;
-      }
-    }
+    observerNodePtr = observerNodePtr->child;
   }
 }
 

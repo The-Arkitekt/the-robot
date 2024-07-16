@@ -32,6 +32,10 @@ set(ARRAY_LIST_DIR      ${UTILS_DIR}/array-list)
 set(QUEUE_DIR           ${UTILS_DIR}/queue)
 set(LINKED_LIST_DIR     ${UTILS_DIR}/linked-list)
 set(NODE_DIR            ${UTILS_DIR}/node)
+set(OBSERVER_DIR        ${UTILS_DIR}/observer)
+set(PAIR_DIR            ${UTILS_DIR}/pair)
+set(MAP_DIR             ${UTILS_DIR}/map)
+set(DATA_BROKER_DIR     ${UTILS_DIR}/data-broker)
 
 add_subdirectory(${MESSAGING_DIR} messaging_bld)
 
@@ -44,6 +48,10 @@ list(APPEND INCLUDE_DIRS
   ${QUEUE_DIR}
   ${LINKED_LIST_DIR}
   ${NODE_DIR}
+  ${OBSERVER_DIR}
+  ${PAIR_DIR}
+  ${MAP_DIR}
+  ${DATA_BROKER_DIR}
 )
 
 list(APPEND SOURCES
@@ -51,6 +59,7 @@ list(APPEND SOURCES
   ${GTEST_UTILS_DIR}/ArrayList-test.cpp
   ${GTEST_UTILS_DIR}/Queue-test.cpp
   ${GTEST_UTILS_DIR}/LinkedList-test.cpp
+  ${GTEST_UTILS_DIR}/DataBroker-test.cpp
 )
 
 ########################################
@@ -70,6 +79,7 @@ target_link_libraries(
   TheRobot-test PUBLIC
   ${LINK_LIBRARIES}
   GTest::gtest_main
+  GTest::gmock_main
 )
 
 include(GoogleTest)

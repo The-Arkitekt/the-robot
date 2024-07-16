@@ -4,17 +4,28 @@ namespace utils
 {
 
 template<typename T>
-ArrayList<T>::ArrayList(const T& defaultValue):
-  defaultObject(defaultValue),
+ArrayList<T>::ArrayList():
   numObjects   (0U),
+  defaultObject(T()),
+  defaultReturn(defaultObject),
+  arr          (nullptr)
+{
+}
+
+template<typename T>
+ArrayList<T>::ArrayList(const T& defaultValue):
+  numObjects   (0U),
+  defaultObject(defaultValue),
+  defaultReturn(defaultValue),
   arr          (nullptr)
 {
 }
 
 template<typename T>
 ArrayList<T>::ArrayList(const uint64_t startingSize, const T& defaultValue):
-  defaultObject(defaultValue),
   numObjects   (0U),
+  defaultObject(defaultValue),
+  defaultReturn(defaultValue),
   arr          (nullptr)
 {
   arr = new(std::nothrow) T[startingSize];
@@ -31,8 +42,9 @@ ArrayList<T>::ArrayList(const uint64_t startingSize, const T& defaultValue):
 
 template<typename T>
 ArrayList<T>::ArrayList(const ArrayList<T>& other):
-  defaultObject(),
   numObjects   (0U),
+  defaultObject(other.defaultObject),
+  defaultReturn(other.defaultObject),
   arr          (nullptr)
 {
   arr = new(std::nothrow) T[other.numObjects];
@@ -62,7 +74,8 @@ T& ArrayList<T>::operator [](const uint64_t index)
   // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
-    return defaultObject;
+    defaultReturn = defaultObject;
+    return defaultReturn;
   }
 
   return arr[index];
@@ -74,6 +87,7 @@ const T& ArrayList<T>::operator [](const uint64_t index) const
   // Give em some garbage if out of bounds
   if (numObjects <= index)
   {
+    // Can return the default object here because const
     return defaultObject;
   }
 

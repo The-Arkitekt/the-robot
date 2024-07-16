@@ -2,6 +2,13 @@ namespace utils
 {
 
 template<typename T>
+Node<T>::Node():
+  object(T()),
+  child (nullptr)
+{
+}
+
+template<typename T>
 Node<T>::Node(const T& object):
   object(object),
   child (nullptr)

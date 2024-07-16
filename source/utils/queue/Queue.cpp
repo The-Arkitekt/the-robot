@@ -4,9 +4,20 @@ namespace utils
 {
 
 template<typename T>
+Queue<T>::Queue():
+  maxObjects   (1U),
+  defaultObject(T()),
+  defaultReturn(defaultObject),
+  numObjects   (0U),
+  linkedList   (defaultObject)
+{
+}
+
+template<typename T>
 Queue<T>::Queue(const uint64_t maxObjects, const T& defaultValue):
   maxObjects   (maxObjects),
   defaultObject(defaultValue),
+  defaultReturn(defaultValue),
   numObjects   (0U),
   linkedList   (defaultValue)
 {
@@ -30,6 +41,12 @@ uint64_t Queue<T>::capacity() const
 }
 
 template<typename T>
+void Queue<T>::setCapacity(const uint64_t newCap)
+{
+  maxObjects = newCap;
+}
+
+template<typename T>
 void Queue<T>::push(const T& object)
 {
   // Do nothing if queue is full
@@ -49,7 +66,8 @@ const T Queue<T>::pop()
   // Return default object if queue is empty
   if (0U == numObjects)
   {
-    return defaultObject;
+    defaultReturn = defaultObject;
+    return defaultReturn;
   }
 
   --numObjects;

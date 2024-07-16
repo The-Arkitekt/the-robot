@@ -2,24 +2,35 @@ namespace utils
 {
 
 template<typename T>
+LinkedList<T>::LinkedList():
+  defaultNode  (T()),
+  defaultReturn(defaultNode),
+  headPointer  (nullptr),
+  tailPointer  (nullptr)
+{
+}
+
+template<typename T>
 LinkedList<T>::LinkedList(const T& defaultValue):
-  defaultNode(defaultValue),
-  headPointer(nullptr),
-  tailPointer(nullptr)
+  defaultNode  (defaultValue),
+  defaultReturn(defaultValue),
+  headPointer  (nullptr),
+  tailPointer  (nullptr)
 {
 }
 
 template<typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& other):
-  defaultNode(),
-  headPointer(nullptr),
-  tailPointer(nullptr)
+  defaultNode  (other.defaultNode),
+  defaultReturn(other.defaultNode),
+  headPointer  (nullptr),
+  tailPointer  (nullptr)
 {
   Node<T> * currentNode = other.headPointer;
 
   while (nullptr != currentNode)
   {
-    push(currentNode->object);
+    pushToBack(currentNode->object);
     currentNode = currentNode->child;
   }
 }
@@ -36,8 +47,9 @@ LinkedList<T>& LinkedList<T>::operator =(const LinkedList<T>& rhs)
   if (this != &rhs)
   {
     clear();
-    this.headPointer = rhs.headPointer;
-    this.tailPointer = rhs.tailPointer;
+    defaultNode      = rhs.defaultNode;
+    this->headPointer = rhs.headPointer;
+    this->tailPointer = rhs.tailPointer;
   }
 
   return *this;
@@ -49,7 +61,8 @@ Node<T>& LinkedList<T>::head()
 {
   if (nullptr == headPointer)
   {
-    return defaultNode;
+    defaultReturn = defaultNode;
+    return defaultReturn;
   }
 
   return * headPointer;
@@ -60,6 +73,7 @@ const Node<T>& LinkedList<T>::head() const
 {
   if (nullptr == headPointer)
   {
+    // can pass defaultNode because const 
     return defaultNode;
   }
 
@@ -71,7 +85,8 @@ Node<T>& LinkedList<T>::tail()
 {
   if (nullptr == tailPointer)
   {
-    return defaultNode;
+    defaultReturn = defaultNode;
+    return defaultReturn;
   }
 
   return * tailPointer;
@@ -82,7 +97,8 @@ const Node<T>& LinkedList<T>::tail() const
 {
   if (nullptr == tailPointer)
   {
-    return defaultNode;
+    defaultReturn = defaultNode;
+    return defaultReturn;
   }
 
   return * tailPointer;

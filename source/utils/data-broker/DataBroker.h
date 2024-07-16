@@ -3,12 +3,13 @@
 
 #include <cstdint>
 #include "Observer.h"
+#include "LinearSearchMap.h"
 #include "LinkedList.h"
 
 namespace utils
 {
 
-template<typename SUBJECT, typename DATA>
+template<typename S, typename D>
 class DataBroker
 {
 public:
@@ -16,13 +17,14 @@ public:
   DataBroker();
   ~DataBroker();
 
-  void registerObserver(const SUBJECT& subject, Observer<DATA>& observer);
-  void update(const SUBJECT& subject, DATA& data);
+  // An observer can be registered multiple times. If it is, its update
+  // will be called multiple times as well
+  void registerObserver(const S& subject, Observer<D>& observer);
+  void update(const S& subject, D& data);
 
 private:
 
-  ArrayList<SUBJECT>                     subjects;
-  ArrayList<LinkedList<Observer<DATA>*>> observers;
+  LinearSearchMap<S, LinkedList<Observer<D> * > > observers;
 
 };
 
