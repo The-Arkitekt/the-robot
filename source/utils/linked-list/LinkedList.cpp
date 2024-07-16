@@ -27,7 +27,6 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other):
   tailPointer  (nullptr)
 {
   Node<T> * currentNode = other.headPointer;
-
   while (nullptr != currentNode)
   {
     pushToBack(currentNode->object);
@@ -47,9 +46,15 @@ LinkedList<T>& LinkedList<T>::operator =(const LinkedList<T>& rhs)
   if (this != &rhs)
   {
     clear();
-    defaultNode      = rhs.defaultNode;
-    this->headPointer = rhs.headPointer;
-    this->tailPointer = rhs.tailPointer;
+    defaultNode   = rhs.defaultNode;
+    defaultReturn = defaultNode;
+    
+    Node<T>* currentNode = rhs.headPointer;
+    while (nullptr != currentNode)
+    {
+      pushToBack(currentNode->object);
+      currentNode = currentNode->child;
+    }
   }
 
   return *this;
