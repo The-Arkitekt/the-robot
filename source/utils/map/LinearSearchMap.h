@@ -5,7 +5,7 @@
 #include "ArrayList.h"
 #include "Pair.h"
 
-namespace utils
+namespace Utils
 {
 
 template<typename K, typename V>

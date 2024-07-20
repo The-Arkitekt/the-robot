@@ -1,0 +1,96 @@
+@startuml
+
+
+component "NetworkInterface" as NI {
+
+}
+
+note left of NI
+  The PublishSubscribeModel classes utilize the NetworkInterface 
+  for networking. When running on an stm32, the internal UART or even 
+  Direct Memory Access can be used to transfer messages. When running 
+  on hardware with a NIC, tcp or http can be used. The 
+  classes in the PublishSubscribeModel dont need to know anything 
+  about those implementation details.
+end note
+
+component "Utils" as U {
+  interface "Observer<ArrayList<uint8_t> >" as O {
+    + update(ArrayList<uint8_t>)
+  }
+}
+
+note left of O
+  The Subscriber will pass itself as an Observer to the
+  HardwareInterface when it calls setupServer(). This
+  will give the HardwareInterface the ability to update
+  the Subscriber when a message is received over the 
+  network or whatever implementation is being used.
+end note
+
+component "PublishSubscribeModel" as PSM {
+
+  class "Publisher" as P {
+    + publish(Message)
+    +- topicId : unsigned int
+  }
+
+  class "Subscriber" as S {
+    + subscribe(unsigned int topicId)
+    + getMessageCount()
+    + pushMessage(Message)
+    + popMessage(Message&)
+    +- subscriberId : unsigned int
+    +- topicId : unsigned int
+  }
+
+
+  class "MessageBroker" as MB {
+    + initialize()
+    + register(unsigned int subscriberId, unsigned int topicID)
+    + update(unsigned int topicID, Message)
+  }
+
+  note right of MB
+    MessageBroker uses the getTopic function from
+    the Publisher and Subscriber to get the Topic
+    to be updated or registered to.
+  end note
+
+  class "Topic" as T {
+    + getId()
+    + updateSubscribers(Message)
+    - id : unsigned int
+  }
+
+  interface "Message" as M {
+    + initialize()
+    + getId()
+    + pack()
+    + unpack(byte array)
+  }
+
+  note right of M
+    Each Message type has a unique ID, this is
+    seperate from the Topic ID because there 
+    can be different Topics using the same 
+    Message type. The pack and unpack functions
+    are used to translate to and from byte arrays 
+    so the messages can be transferred over a 
+    network interface
+  end note
+
+}
+
+PSM .u.> NI : "uses"
+
+P .d.> MB : "publishes"
+
+MB o--> T : "may contain many"
+T o--> S : "may contain many"
+T ..> M : "uses"
+
+S ..> MB : "subscribes"
+S ..|> O : "implements"
+
+@enduml

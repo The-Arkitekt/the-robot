@@ -27,6 +27,7 @@
 
   1. Initial Pub/Sub infrastructure
      *** 06-08-24: COMPLETE ***
+     *** 07-19-24: REVISITIING ***
 
   2. Initial classes done
 

@@ -1,4 +1,4 @@
-namespace utils
+namespace Utils
 {
 
 template<typename FIRST, typename SECOND>

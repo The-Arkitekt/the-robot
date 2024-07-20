@@ -27,7 +27,7 @@ protected:
 
 public:
 
-  messaging::DriveStateCommand driveStateCommand;
+  Messages::DriveStateCommand driveStateCommand;
 
 };
 
@@ -44,19 +44,19 @@ TEST_F(DriveStateCommandTest, ParameterConstructor)
   int8_t yDirection = -1;
   int8_t zDirection = 3;
 
-  messaging::DriveStateCommand initializedCommand(xDirection, yDirection, zDirection);
+  Messages::DriveStateCommand initializedCommand(xDirection, yDirection, zDirection);
   EXPECT_EQ(1,       initializedCommand.xDirection);
   EXPECT_EQ(-1,      initializedCommand.yDirection);
   EXPECT_EQ(3,       initializedCommand.zDirection);
 }
 
-TEST_F(DriveStateCommandTest, init)
+TEST_F(DriveStateCommandTest, initialize)
 {
   driveStateCommand.xDirection = 1;
   driveStateCommand.yDirection = -1;
   driveStateCommand.zDirection = 3;
 
-  driveStateCommand.init();
+  driveStateCommand.initialize();
 
   EXPECT_EQ(0, driveStateCommand.xDirection);
   EXPECT_EQ(0, driveStateCommand.yDirection);
@@ -65,7 +65,7 @@ TEST_F(DriveStateCommandTest, init)
 
 TEST_F(DriveStateCommandTest, pack)
 {
-  utils::ArrayList<uint8_t> bytes = driveStateCommand.pack();
+  Utils::ArrayList<uint8_t> bytes = driveStateCommand.pack();
 
   ASSERT_EQ(4U, bytes.size());
   EXPECT_EQ(0U, bytes[0U]);
@@ -86,8 +86,8 @@ TEST_F(DriveStateCommandTest, pack)
 
 TEST_F(DriveStateCommandTest, unpack)
 {
-  utils::ArrayList<uint8_t> packedBytes(4U, 0U);
-  packedBytes[0U] = driveStateCommand.identifier();
+  Utils::ArrayList<uint8_t> packedBytes(4U, 0U);
+  packedBytes[0U] = driveStateCommand.getId();
   packedBytes[1U] = 255;
   packedBytes[2U] = 128;
   packedBytes[3U] = 127;

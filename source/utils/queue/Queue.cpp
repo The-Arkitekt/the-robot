@@ -1,6 +1,6 @@
 #include <new>
 
-namespace utils
+namespace Utils
 {
 
 template<typename T>
@@ -14,7 +14,7 @@ Queue<T>::Queue():
 }
 
 template<typename T>
-Queue<T>::Queue(const uint64_t maxObjects, const T& defaultValue):
+Queue<T>::Queue(const unsigned int maxObjects, const T& defaultValue):
   maxObjects   (maxObjects),
   defaultObject(defaultValue),
   defaultReturn(defaultValue),
@@ -29,19 +29,19 @@ Queue<T>::~Queue()
 }
 
 template<typename T>
-uint64_t Queue<T>::size() const
+unsigned int Queue<T>::size() const
 {
   return numObjects;
 }
 
 template<typename T>
-uint64_t Queue<T>::capacity() const
+unsigned int Queue<T>::capacity() const
 {
   return maxObjects;
 }
 
 template<typename T>
-void Queue<T>::setCapacity(const uint64_t newCap)
+void Queue<T>::setCapacity(const unsigned int newCap)
 {
   maxObjects = newCap;
 }

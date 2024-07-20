@@ -23,10 +23,13 @@ enable_testing()
 #########################################
 # Setup files and directories
 #
-set(GTEST_MESSAGING_DIR ${CMAKE_CURRENT_SOURCE_DIR}/messaging)
+set(GTEST_PUB_SUB_DIR   ${CMAKE_CURRENT_SOURCE_DIR}/pub-sub)
+set(GTEST_MSG_DEF_DIR   ${GTEST_PUB_SUB_DIR}/message-definitions)
 set(GTEST_UTILS_DIR     ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 set(ROBOT_SOURCE_DIR    ${CMAKE_CURRENT_SOURCE_DIR}/../source)
-set(MESSAGING_DIR       ${ROBOT_SOURCE_DIR}/messaging)
+set(INFRASTRUCTURE_DIR  ${ROBOT_SOURCE_DIR}/infrastructure)
+set(PUB_SUB_DIR         ${INFRASTRUCTURE_DIR}/pub-sub)
+set(MSG_DEF_DIR         ${PUB_SUB_DIR}/message-definition)
 set(UTILS_DIR           ${ROBOT_SOURCE_DIR}/utils)
 set(ARRAY_LIST_DIR      ${UTILS_DIR}/array-list)
 set(QUEUE_DIR           ${UTILS_DIR}/queue)
@@ -35,12 +38,11 @@ set(NODE_DIR            ${UTILS_DIR}/node)
 set(OBSERVER_DIR        ${UTILS_DIR}/observer)
 set(PAIR_DIR            ${UTILS_DIR}/pair)
 set(MAP_DIR             ${UTILS_DIR}/map)
-set(DATA_BROKER_DIR     ${UTILS_DIR}/data-broker)
 
-add_subdirectory(${MESSAGING_DIR} messaging_bld)
+add_subdirectory(${PUB_SUB_DIR} pub-sub_bld)
 
 list(APPEND LINK_LIBRARIES
-  Messaging
+  DriveStateCommand
 )
 
 list(APPEND INCLUDE_DIRS
@@ -51,15 +53,13 @@ list(APPEND INCLUDE_DIRS
   ${OBSERVER_DIR}
   ${PAIR_DIR}
   ${MAP_DIR}
-  ${DATA_BROKER_DIR}
 )
 
 list(APPEND SOURCES
-  ${GTEST_MESSAGING_DIR}/DriveStateCommand-test.cpp
+  ${GTEST_MSG_DEF_DIR}/DriveStateCommand-test.cpp
   ${GTEST_UTILS_DIR}/ArrayList-test.cpp
   ${GTEST_UTILS_DIR}/Queue-test.cpp
   ${GTEST_UTILS_DIR}/LinkedList-test.cpp
-  ${GTEST_UTILS_DIR}/DataBroker-test.cpp
   ${GTEST_UTILS_DIR}/LinearSearchMap-test.cpp
 )
 

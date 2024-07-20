@@ -1,10 +1,9 @@
 #ifndef UTILS_LINKED_LIST_H
 #define UTILS_LINKED_LIST_H
 
-#include <cstdint>
 #include "Node.h"
 
-namespace utils
+namespace Utils
 {
 
 template<typename T>

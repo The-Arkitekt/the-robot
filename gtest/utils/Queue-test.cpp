@@ -28,7 +28,7 @@ protected:
 TEST_F(QueueTest, Constructor)
 {
   const uint64_t capacity = 543;
-  utils::Queue<uint8_t> queue(capacity, 0U);
+  Utils::Queue<uint8_t> queue(capacity, 0U);
 
   EXPECT_EQ(capacity, queue.capacity());
 
@@ -39,7 +39,7 @@ TEST_F(QueueTest, Constructor)
 TEST_F(QueueTest, PushUntilFullThenPop)
 {
   const uint64_t capacity = 5U;
-  utils::Queue<uint8_t> queue(capacity, 0U);
+  Utils::Queue<uint8_t> queue(capacity, 0U);
 
   for (uint64_t i = 0U; i < capacity; ++i)
   {
@@ -60,7 +60,7 @@ TEST_F(QueueTest, PushUntilFullThenPop)
 TEST_F(QueueTest, PushOverCapacity)
 {
   const uint64_t capacity = 1U;
-  utils::Queue<uint8_t> queue(capacity, 2U);
+  Utils::Queue<uint8_t> queue(capacity, 2U);
 
   uint8_t firstVal = 23U;
   queue.push(firstVal);
@@ -76,7 +76,7 @@ TEST_F(QueueTest, PushOverCapacity)
 TEST_F(QueueTest, PopEmpty)
 {
   uint8_t defaultValue = 4U;
-  utils::Queue<uint8_t> queue(1U, defaultValue);
+  Utils::Queue<uint8_t> queue(1U, defaultValue);
 
   uint8_t poppedVal = queue.pop();
 
@@ -87,7 +87,7 @@ TEST_F(QueueTest, clear)
 {
   uint64_t capacity   = 5U;
   uint16_t defaultVal = 10U;
-  utils::Queue<uint16_t> queue(capacity, defaultVal);
+  Utils::Queue<uint16_t> queue(capacity, defaultVal);
 
   for (uint64_t i = 0U; i < capacity; ++i)
   {

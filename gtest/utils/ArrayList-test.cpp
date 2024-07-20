@@ -27,7 +27,7 @@ protected:
 
 TEST_F(ArrayListTest, SizeZeroConstructor)
 {
-  utils::ArrayList<uint8_t> arrayList(0U);
+  Utils::ArrayList<uint8_t> arrayList(0U);
   EXPECT_EQ(0U, arrayList.size());
 }
 
@@ -36,7 +36,7 @@ TEST_F(ArrayListTest, StartingSizeConstructor)
   const uint64_t startingSize = 5U;
   const uint8_t  defaultValue = 1U;
   
-  utils::ArrayList<uint8_t> initializedArrayList(startingSize, defaultValue);
+  Utils::ArrayList<uint8_t> initializedArrayList(startingSize, defaultValue);
   
   EXPECT_EQ(startingSize, initializedArrayList.size());
   for (uint64_t i = 0U; i < startingSize; ++i)
@@ -47,7 +47,7 @@ TEST_F(ArrayListTest, StartingSizeConstructor)
 
 TEST_F(ArrayListTest, CopyConstructor)
 {
-  utils::ArrayList<uint8_t> arrayList(0U);
+  Utils::ArrayList<uint8_t> arrayList(0U);
   const uint64_t size = 12U;
   arrayList.resize(size);
 
@@ -56,7 +56,7 @@ TEST_F(ArrayListTest, CopyConstructor)
     arrayList[i] = i;
   }
 
-  utils::ArrayList<uint8_t> copiedArrayList(arrayList);
+  Utils::ArrayList<uint8_t> copiedArrayList(arrayList);
 
   ASSERT_EQ(arrayList.size(), copiedArrayList.size());
   
@@ -68,13 +68,13 @@ TEST_F(ArrayListTest, CopyConstructor)
 
 TEST_F(ArrayListTest, AssignmentOperator)
 {
-  utils::ArrayList<uint8_t> arrayList(0U);
+  Utils::ArrayList<uint8_t> arrayList(0U);
   arrayList.resize(2U);
 
   arrayList[0U] = 10U;
   arrayList[1U] = 20U;
 
-  utils::ArrayList<uint8_t> assignedArrayList(0U);
+  Utils::ArrayList<uint8_t> assignedArrayList(0U);
 
   assignedArrayList = arrayList;
 
@@ -86,7 +86,7 @@ TEST_F(ArrayListTest, AssignmentOperator)
 TEST_F(ArrayListTest, ResizeBigger)
 {
   const uint8_t defaultValue = 3U;
-  utils::ArrayList<uint8_t> arrayList(0U, defaultValue);
+  Utils::ArrayList<uint8_t> arrayList(0U, defaultValue);
   const uint64_t newSize = 542U;
   arrayList.resize(newSize);
   EXPECT_EQ(newSize, arrayList.size());
@@ -99,7 +99,7 @@ TEST_F(ArrayListTest, ResizeBigger)
 
 TEST_F(ArrayListTest, ResizeSmaller)
 {
-  utils::ArrayList<uint8_t> arrayList(5U, 0U);
+  Utils::ArrayList<uint8_t> arrayList(5U, 0U);
   for (uint64_t i = 0U; i < arrayList.size(); ++i)
   {
     arrayList[i] = i;
@@ -116,7 +116,7 @@ TEST_F(ArrayListTest, ResizeSmaller)
 
 TEST_F(ArrayListTest, clear)
 {
-  utils::ArrayList<uint8_t> arrayList(3U, 0U);
+  Utils::ArrayList<uint8_t> arrayList(3U, 0U);
   arrayList[0U] = 23U;
   arrayList[1U] = 42U;
   arrayList[2U] = 74U;

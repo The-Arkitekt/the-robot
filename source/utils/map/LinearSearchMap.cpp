@@ -1,6 +1,6 @@
 #include <new>
 
-namespace utils
+namespace Utils
 {
 
 template<typename K, typename V>
@@ -36,8 +36,8 @@ LinearSearchMap<K,V>::~LinearSearchMap()
 template<typename K, typename V>
 V& LinearSearchMap<K,V>::operator [](const K& key)
 {
-  const uint64_t numPairs = pairs.size();
-  for (uint64_t i = 0U; i < numPairs; ++i)
+  const unsigned int numPairs = pairs.size();
+  for (unsigned int i = 0U; i < numPairs; ++i)
   {
     if (key == pairs[i].first)
     {
@@ -55,8 +55,8 @@ V& LinearSearchMap<K,V>::operator [](const K& key)
 template<typename K, typename V>
 const V& LinearSearchMap<K,V>::operator [](const K& key) const
 {
-  const uint64_t numPairs = pairs.size();
-  for (uint64_t i = 0U; i < numPairs; ++i)
+  const unsigned int numPairs = pairs.size();
+  for (unsigned int i = 0U; i < numPairs; ++i)
   {
     if (key == pairs[i].first)
     {
@@ -84,11 +84,11 @@ LinearSearchMap<K,V>& LinearSearchMap<K,V>::operator =(const LinearSearchMap<K,V
 template<typename K, typename V>
 const ArrayList<K> LinearSearchMap<K,V>::getKeys() const
 {
-  uint64_t numKeys = pairs.size();
+  unsigned int numKeys = pairs.size();
 
   ArrayList<K> keys(numKeys, K());
   
-  for(uint64_t i = 0U; i < numKeys; ++i)
+  for(unsigned int i = 0U; i < numKeys; ++i)
   {
     keys[i] = pairs[i].first;
   }

@@ -3,7 +3,7 @@
 
 #include "Controller.h"
 
-namespace utils
+namespace Utils
 {
 
 class PIDController : public Controller

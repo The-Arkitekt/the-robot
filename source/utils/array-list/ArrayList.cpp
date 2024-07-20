@@ -1,6 +1,6 @@
 #include <new>
 
-namespace utils
+namespace Utils
 {
 
 template<typename T>
@@ -22,7 +22,7 @@ ArrayList<T>::ArrayList(const T& defaultValue):
 }
 
 template<typename T>
-ArrayList<T>::ArrayList(const uint64_t startingSize, const T& defaultValue):
+ArrayList<T>::ArrayList(const unsigned int startingSize, const T& defaultValue):
   numObjects   (0U),
   defaultObject(defaultValue),
   defaultReturn(defaultValue),
@@ -33,7 +33,7 @@ ArrayList<T>::ArrayList(const uint64_t startingSize, const T& defaultValue):
   if (nullptr != arr)
   {
     numObjects = startingSize;
-    for (uint64_t i = 0U; i < numObjects; ++i)
+    for (unsigned int i = 0U; i < numObjects; ++i)
     {
       arr[i] = defaultObject;
     }
@@ -56,7 +56,7 @@ ArrayList<T>::ArrayList(const ArrayList<T>& other):
 
   numObjects = other.numObjects;
 
-  for (uint64_t i = 0U; i < numObjects; ++i)
+  for (unsigned int i = 0U; i < numObjects; ++i)
   {
     arr[i] = other.arr[i];
   }
@@ -69,7 +69,7 @@ ArrayList<T>::~ArrayList()
 }
 
 template<typename T>
-T& ArrayList<T>::operator [](const uint64_t index)
+T& ArrayList<T>::operator [](const unsigned int index)
 {
   // Give em some garbage if out of bounds
   if (numObjects <= index)
@@ -82,7 +82,7 @@ T& ArrayList<T>::operator [](const uint64_t index)
 }
 
 template<typename T>
-const T& ArrayList<T>::operator [](const uint64_t index) const
+const T& ArrayList<T>::operator [](const unsigned int index) const
 {
   // Give em some garbage if out of bounds
   if (numObjects <= index)
@@ -102,7 +102,7 @@ ArrayList<T>& ArrayList<T>::operator =(const ArrayList<T>& rhs)
     clear();
     resize(rhs.numObjects);
 
-    for (uint64_t i = 0U; i < numObjects; ++i)
+    for (unsigned int i = 0U; i < numObjects; ++i)
     {
       arr[i] = rhs.arr[i];
     }
@@ -112,13 +112,13 @@ ArrayList<T>& ArrayList<T>::operator =(const ArrayList<T>& rhs)
 }
 
 template<typename T>
-const uint64_t ArrayList<T>::size() const
+const unsigned int ArrayList<T>::size() const
 {
   return numObjects;
 }
 
 template<typename T>
-void ArrayList<T>::resize(const uint64_t newSize)
+void ArrayList<T>::resize(const unsigned int newSize)
 {
   T * newArr = new(std::nothrow) T[newSize];
 
@@ -131,7 +131,7 @@ void ArrayList<T>::resize(const uint64_t newSize)
   }
 
   // Copy contents and set rest to default if necessary
-  for (uint64_t i = 0U; i < newSize; ++i)
+  for (unsigned int i = 0U; i < newSize; ++i)
   {
     if (i < numObjects)
     {

@@ -1,0 +1,32 @@
+@startuml
+
+Participant "Client" as C
+Participant "Subscriber" as S
+Participant "NetworkInterface" as NI
+
+C -> S ++ #LIGHTGREY : subscribe(topicId)
+
+S -> S ++ #DARKGREY : createSubscriberRegistration()
+note right: create a byte array list including this subscriber ID and topic ID
+return byteArray
+
+S -> NI ++ #LIGHTGREY : sendToServer(MessageBrokerId, byteArray)
+
+note right: Lets say this NetworkInterface implementation is using UDP
+
+NI -> NI ++ #DARKGREY : getServerAddress(MessageBrokerId)
+note right: Search address table for MessageBroker port, etc..
+return address
+
+NI -> NI ++ #DARKGREY : sendUdpMessage(address, byteArray)
+return
+return
+
+S -> NI ++ #DARKGREY : setupServer(subscriberId, this)
+note right: Create a new UDP server and add map entry 
+            for subscriberId to it's server address
+return
+
+return
+
+@enduml

@@ -1,7 +1,7 @@
 #ifndef UTILS_PAIR_H
 #define UTILS_PAIR_H
 
-namespace utils
+namespace Utils
 {
 
 template<typename FIRST, typename SECOND>

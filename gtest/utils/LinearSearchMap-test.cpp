@@ -27,7 +27,7 @@ protected:
 
 TEST_F(LinearSearchMapTest, SetAndGetValues)
 {
-  utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
+  Utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
 
   int32_t firstVal = -2;
   uint8_t firstKey = 1U;
@@ -47,28 +47,28 @@ TEST_F(LinearSearchMapTest, SetAndGetValues)
 
 TEST_F(LinearSearchMapTest, CopyConstructor)
 {
-  utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
+  Utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
   
   int32_t firstVal = -2;
   uint8_t firstKey = 1U;
 
   linearSearchMap[firstKey] = firstVal;
 
-  utils::LinearSearchMap<uint8_t, int32_t> copyMap(linearSearchMap);
+  Utils::LinearSearchMap<uint8_t, int32_t> copyMap(linearSearchMap);
 
   EXPECT_EQ(firstVal, copyMap[firstKey]);
 }
 
 TEST_F(LinearSearchMapTest, CopyAssignment)
 {
-  utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
+  Utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
   
   int32_t firstVal = -2;
   uint8_t firstKey = 1U;
 
   linearSearchMap[firstKey] = firstVal;
 
-  utils::LinearSearchMap<uint8_t, int32_t> copyMap;
+  Utils::LinearSearchMap<uint8_t, int32_t> copyMap;
 
   copyMap = linearSearchMap;
 
@@ -77,7 +77,7 @@ TEST_F(LinearSearchMapTest, CopyAssignment)
 
 TEST_F(LinearSearchMapTest, GetKeys)
 {
-  utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
+  Utils::LinearSearchMap<uint8_t, int32_t> linearSearchMap;
 
   int32_t firstVal = -2;
   uint8_t firstKey = 1U;
@@ -89,7 +89,7 @@ TEST_F(LinearSearchMapTest, GetKeys)
 
   linearSearchMap[secondKey] = secondVal;
 
-  utils::ArrayList<uint8_t> keys = linearSearchMap.getKeys();
+  Utils::ArrayList<uint8_t> keys = linearSearchMap.getKeys();
 
   ASSERT_EQ(2U, keys.size());
   EXPECT_EQ(1U, keys[0U]);

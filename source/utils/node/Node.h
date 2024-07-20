@@ -1,7 +1,7 @@
 #ifndef UTILS_NODE_H
 #define UTILS_NODE_H
 
-namespace utils
+namespace Utils
 {
 
 template<typename T>

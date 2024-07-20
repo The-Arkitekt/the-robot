@@ -1,0 +1,15 @@
+@startuml
+
+Participant "Client" as C
+Participant "MessageBroker" as MB
+Participant "NetworkInterface" as NI
+
+C -> MB ++ #LIGHTGREY : initialize()
+
+MB -> NI ++ #LIGHTGREY : setupServer(MessageBrokerId, this)
+note right: Lets say this NetworkInterface implementation is using UDP: create a new UDP server and add map entry for MessageBrokerID to it's server address
+return
+
+return
+
+@enduml

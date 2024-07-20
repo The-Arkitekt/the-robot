@@ -28,7 +28,7 @@ protected:
 TEST_F(LinkedListTest, Constructor)
 {
   const uint8_t defaultValue = 2U;
-  utils::LinkedList<uint8_t> linkedList(defaultValue);
+  Utils::LinkedList<uint8_t> linkedList(defaultValue);
 
   EXPECT_EQ(defaultValue, linkedList.head().object);
   EXPECT_EQ(defaultValue, linkedList.tail().object);
@@ -39,7 +39,7 @@ TEST_F(LinkedListTest, Constructor)
 TEST_F(LinkedListTest, PushFirstObjectToBack)
 {
   const uint8_t defaultValue = 1U;
-  utils::LinkedList<uint8_t> linkedList(defaultValue);
+  Utils::LinkedList<uint8_t> linkedList(defaultValue);
 
   const uint8_t firstPushVal = 32U;
   linkedList.pushToBack(firstPushVal);
@@ -53,7 +53,7 @@ TEST_F(LinkedListTest, PushFirstObjectToBack)
 TEST_F(LinkedListTest, PushSecondObjectToBack)
 {
   const uint8_t defaultValue = 2U;
-  utils::LinkedList<uint8_t> linkedList(defaultValue);
+  Utils::LinkedList<uint8_t> linkedList(defaultValue);
 
   const uint8_t firstPushVal  = 27U;
   const uint8_t secondPushVal = 87U;
@@ -70,7 +70,7 @@ TEST_F(LinkedListTest, PushSecondObjectToBack)
 TEST_F(LinkedListTest, PopFromFront)
 {
   const uint8_t defaultValue = 2U;
-  utils::LinkedList<uint8_t> linkedList(defaultValue);
+  Utils::LinkedList<uint8_t> linkedList(defaultValue);
 
   const uint8_t firstPushVal  = 27U;
   const uint8_t secondPushVal = 87U;
@@ -90,7 +90,7 @@ TEST_F(LinkedListTest, PopFromFront)
 TEST_F(LinkedListTest, Clear)
 {
   const uint8_t defaultValue = 2U;
-  utils::LinkedList<uint8_t> linkedList(defaultValue);
+  Utils::LinkedList<uint8_t> linkedList(defaultValue);
 
   const uint8_t firstPushVal  = 27U;
   const uint8_t secondPushVal = 87U;

@@ -1,7 +1,7 @@
 #include "DriveStateCommand.h"
 #include <new>
 
-namespace messaging
+namespace Messages
 {
 
 DriveStateCommand::DriveStateCommand():
@@ -26,25 +26,25 @@ DriveStateCommand::~DriveStateCommand()
 {
 }
 
-void DriveStateCommand::init()
+void DriveStateCommand::initialize()
 {
   xDirection = 0;
   yDirection = 0;
   zDirection = 0;
 
-  const uint64_t arrayListSize = packedBytes.size();
-  for (uint64_t i = 0U; i < arrayListSize; ++i)
+  const unsigned int arrayListSize = packedBytes.size();
+  for (unsigned int i = 0U; i < arrayListSize; ++i)
   {
     packedBytes[i] = 0U;
   }
 }
 
-uint8_t DriveStateCommand::identifier() const
+unsigned int DriveStateCommand::getId() const
 {
   return IDENTIFIER;
 }
 
-utils::ArrayList<uint8_t> DriveStateCommand::pack()
+Utils::ArrayList<uint8_t> DriveStateCommand::pack()
 {
   if (0U == packedBytes.size())
   {
@@ -58,7 +58,7 @@ utils::ArrayList<uint8_t> DriveStateCommand::pack()
   return packedBytes;
 }
 
-void DriveStateCommand::unpack(const utils::ArrayList<uint8_t>& data)
+void DriveStateCommand::unpack(const Utils::ArrayList<uint8_t>& data)
 {
   if ((NUM_BYTES != data.size()) || (IDENTIFIER != data[0U]))
   {

@@ -1,9 +1,7 @@
 #ifndef UTILS_ARRAY_LIST_H
 #define UTILS_ARRAY_LIST_H
 
-#include <cstdint>
-
-namespace utils
+namespace Utils
 {
 
 template<typename T>
@@ -13,24 +11,24 @@ public:
 
   ArrayList();
   ArrayList(const T& defaultValue);
-  ArrayList(const uint64_t startingSize, const T& defaultValue);
+  ArrayList(const unsigned int startingSize, const T& defaultValue);
   ArrayList(const ArrayList& other);
   ~ArrayList();
 
-  T&            operator [](const uint64_t index);
-  const T&      operator [](const uint64_t index) const;
+  T&            operator [](const unsigned int index);
+  const T&      operator [](const unsigned int index) const;
   ArrayList<T>& operator =(const ArrayList<T>& rhs);
 
-  const uint64_t size() const;
-  void           resize(const uint64_t newSize);
-  void           clear();
+  const unsigned int size() const;
+  void               resize(const unsigned int newSize);
+  void               clear();
 
 private:
 
-  uint64_t numObjects;
-  T        defaultObject;
-  T        defaultReturn;
-  T *      arr;
+  unsigned int numObjects;
+  T            defaultObject;
+  T            defaultReturn;
+  T *          arr;
 
 };
 

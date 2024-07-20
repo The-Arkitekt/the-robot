@@ -1,7 +1,7 @@
 #ifndef UTILS_OBSERVER_H
 #define UTILS_OBSERVER_H
 
-namespace utils
+namespace Utils
 {
 
 template<typename T>

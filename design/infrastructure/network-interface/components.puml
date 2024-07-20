@@ -1,0 +1,24 @@
+@startuml
+
+
+component "NetworkInterface" as NI {
+
+  interface "NetworkInterface" as NII {
+    + configure()
+    + registerSubscriber(unsigned int subscriberId, unsigned int topicId)
+    + setupServer(unsigned int componentId, Observer&)
+  }
+
+  class "LocalLinuxInterface" as LLI {
+
+  }
+
+}
+
+LLI -u-|> NII : "implements"
+
+
+
+@enduml
+
+
