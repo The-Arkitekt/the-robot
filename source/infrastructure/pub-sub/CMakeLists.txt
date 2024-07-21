@@ -15,3 +15,9 @@ target_include_directories(
   DriveStateCommand PUBLIC
   ${INCLUDE_DIRS}
 )
+
+add_library(NetworkMessage ${MSG_DEF_DIR}/NetworkMessage.cpp)
+target_include_directories(
+  NetworkMessage PUBLIC
+  ${INCLUDE_DIRS}
+)

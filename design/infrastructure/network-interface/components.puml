@@ -1,10 +1,9 @@
 @startuml
 
-
 component "NetworkInterface" as NI {
 
   interface "NetworkInterface" as NII {
-    + configure()
+    + generateUniqueId()
     + registerSubscriber(unsigned int subscriberId, unsigned int topicId)
     + setupServer(unsigned int componentId, Observer&)
   }
@@ -21,4 +20,4 @@ LLI -u-|> NII : "implements"
 
 @enduml
 
-
+`

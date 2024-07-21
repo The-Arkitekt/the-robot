@@ -67,10 +67,17 @@ TEST_F(DriveStateCommandTest, pack)
 {
   Utils::ArrayList<uint8_t> bytes = driveStateCommand.pack();
 
-  ASSERT_EQ(4U, bytes.size());
-  EXPECT_EQ(0U, bytes[0U]);
+  unsigned int identifier = driveStateCommand.getId();
+  ASSERT_EQ(4U, sizeof(identifier));
+
+  ASSERT_EQ(7U, bytes.size());
+  EXPECT_EQ(1U, bytes[0U]);
   EXPECT_EQ(0U, bytes[1U]);
   EXPECT_EQ(0U, bytes[2U]);
+  EXPECT_EQ(0U, bytes[3U]);
+  EXPECT_EQ(0U, bytes[4U]);
+  EXPECT_EQ(0U, bytes[5U]);
+  EXPECT_EQ(0U, bytes[6U]);
 
   driveStateCommand.xDirection = -1;
   driveStateCommand.yDirection = -128;
@@ -78,19 +85,26 @@ TEST_F(DriveStateCommandTest, pack)
 
   bytes = driveStateCommand.pack();
 
-  ASSERT_EQ(4U,  bytes.size());
-  EXPECT_EQ(255, bytes[0U]);
-  EXPECT_EQ(128, bytes[1U]);
-  EXPECT_EQ(127, bytes[2U]);
+  ASSERT_EQ(7U,  bytes.size());
+  EXPECT_EQ(1U,  bytes[0U]);
+  EXPECT_EQ(0U,  bytes[1U]);
+  EXPECT_EQ(0U,  bytes[2U]);
+  EXPECT_EQ(0U,  bytes[3U]);
+  EXPECT_EQ(255, bytes[4U]);
+  EXPECT_EQ(128, bytes[5U]);
+  EXPECT_EQ(127, bytes[6U]);
 }
 
 TEST_F(DriveStateCommandTest, unpack)
 {
-  Utils::ArrayList<uint8_t> packedBytes(4U, 0U);
-  packedBytes[0U] = driveStateCommand.getId();
-  packedBytes[1U] = 255;
-  packedBytes[2U] = 128;
-  packedBytes[3U] = 127;
+  Utils::ArrayList<uint8_t> packedBytes(7U, 0U);
+  unsigned int id = driveStateCommand.getId();
+  ASSERT_EQ(4U, sizeof(id));
+
+  packedBytes[0U] = static_cast<uint8_t>(id);
+  packedBytes[4U] = 255U;
+  packedBytes[5U] = 128U;
+  packedBytes[6U] = 127U;
 
   driveStateCommand.unpack(packedBytes);
 
@@ -99,9 +113,9 @@ TEST_F(DriveStateCommandTest, unpack)
   EXPECT_EQ(127,  driveStateCommand.zDirection);
 
   packedBytes[0U] = 23;
-  packedBytes[1U] = -3;
-  packedBytes[2U] = 43;
-  packedBytes[3U] = 72;
+  packedBytes[4U] = -3;
+  packedBytes[5U] = 43;
+  packedBytes[6U] = 72;
 
   driveStateCommand.unpack(packedBytes);
 

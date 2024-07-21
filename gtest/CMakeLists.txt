@@ -43,6 +43,7 @@ add_subdirectory(${PUB_SUB_DIR} pub-sub_bld)
 
 list(APPEND LINK_LIBRARIES
   DriveStateCommand
+  NetworkMessage
 )
 
 list(APPEND INCLUDE_DIRS
@@ -57,6 +58,7 @@ list(APPEND INCLUDE_DIRS
 
 list(APPEND SOURCES
   ${GTEST_MSG_DEF_DIR}/DriveStateCommand-test.cpp
+  ${GTEST_MSG_DEF_DIR}/NetworkMessage-test.cpp
   ${GTEST_UTILS_DIR}/ArrayList-test.cpp
   ${GTEST_UTILS_DIR}/Queue-test.cpp
   ${GTEST_UTILS_DIR}/LinkedList-test.cpp

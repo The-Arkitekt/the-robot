@@ -11,10 +11,9 @@ namespace NetworkInterface
 class NetworkInterface
 {
 public:
-
-  virtual void configure(const char* configFilePath)                                                        = 0;
-  virtual void registerSubscriber(const unsigned int subscriberId, unsigned int topicId)                    = 0;
-  virtual void setupServer(const unsigned int subscriberId, Observer<Utils::ArrayList<uint8_t> >& observer) = 0;
+  
+  virtual void setupServer(const unsigned int serverId, Observer<Utils::ArrayList<uint8_t> >& observer) = 0;
+  virtual void sendToServer(const unsigned int serverId, const Utils::ArrayList<uint8_t>& data)         = 0;
 
 }
 

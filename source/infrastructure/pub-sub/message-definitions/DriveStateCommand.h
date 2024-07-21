@@ -31,7 +31,8 @@ public:
 private:
   
   static const unsigned int IDENTIFIER = 1U;
-  static const unsigned int NUM_BYTES = 4U; // includes identifier
+  static const unsigned int ID_SIZE    = sizeof(IDENTIFIER);
+  static const unsigned int NUM_BYTES  = ID_SIZE + 3U; // includes identifier
 
   Utils::ArrayList<uint8_t> packedBytes;
 

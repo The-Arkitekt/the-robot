@@ -11,11 +11,6 @@ LocalLInuxNetworkInterface::~LocalLinuxNetworkInterface()
 {
 }
 
-void LocalLinuxNetworkInterface::configure(const char * configFilePath)
-{
-
-}
-
 void LocalLinuxNetworkInterface::setupServer(const unsigned int serverId, Observer<Utils::ArrayList<uint8_t> >& observer)
 {
 

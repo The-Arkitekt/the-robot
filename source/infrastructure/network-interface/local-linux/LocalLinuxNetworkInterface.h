@@ -13,7 +13,7 @@ public:
   LocalLinuxNetworkInterface();
   ~LocalLinuxNetworkInterface();
 
-  void configure(const char * configFilePath);
+  unsigned int generateUniqueId();
   void setupServer(const unsigned int serverId, Observer<Utils::ArrayList<uint8_t> >& observer);
   void sendToServer(const unsigned int serverId, const Utils::ArrayList<uint8_t>& data)
 
